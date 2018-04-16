@@ -24,7 +24,7 @@
         	  				</div>
         	  			</div>
         	  	</div>
-        	  	<div class='content-main'>
+        	  	<div class='content-main' @click='orderDetail'>
         	  			<div class='layout'>
         	  				 <table>
         	  				 	<tr class='order-main-tr'>
@@ -52,17 +52,103 @@
         	  	</div>
         	  </div>
         </div>
-          <mt-popup
-          v-model="popupVisible"
-          position="bottom">
+          <mt-popup v-model="popupVisible" position="bottom">
             <div class='detail-picker-btn' @click="cancelDetailPicker">取消</div><div class='detail-picker-btn' @click="handleDetailPicker">确认</div>
             <picker :data='detailArr' v-model='detailValue' @on-change='detailChange' class='detailPicker'></picker> 
-        </mt-popup>
+    	  </mt-popup>
+
+    	   <mt-popup v-model="OrderDetailVisible" position="right">
+            <div class='orderDetail-div'>
+              
+          	 <div class="close">
+              	<div class='layout'>
+                	<i class='icon iconfont icon-guanbi' @click='closeOrderDetail'></i>
+                	医嘱详情
+              	</div>      
+              </div>
+              <div class='content-main-div'>
+              <div class="content-detail-title">
+              	
+              		<div class='orderType'>
+              			临时
+              		</div>
+              	<div class='layout'>	
+              		<div class='content-detail-order-name'>
+              			DR头颅正位*(1)
+              		</div>
+          		</div>
+              </div> 
+              	<div class="content-detail-main">
+                <table class='content-table'>
+                  <tr>
+                    <td class='text-align-left-td-class table-td'>医嘱序号</td>
+                    <td class='text-align-right-td-class table-td'>3</td>
+                  </tr>
+                  <tr>
+                    <td class='text-align-left-td-class table-td'>当前状态</td>
+                    <td class='text-align-right-td-class table-td'>执行</td>
+                  </tr>
+               
+                  <tr>
+                    <td class='text-align-left-td-class table-td'>途径</td>
+                    <td class='text-align-right-td-class table-td'>99ml</td>
+                  </tr>
+                  <tr>
+                    <td class='text-align-left-td-class table-td'>频次</td>
+                    <td class='text-align-right-td-class table-td'>99ml</td>
+                  </tr>
+                  <tr>
+                    <td class='text-align-left-td-class table-td'>执行时间</td>
+                    <td class='text-align-right-td-class table-td'>99ml</td>
+                  </tr>
+                  <tr>
+                    <td class='text-align-left-td-class table-td border-bottom-none'>医生说明</td>
+                    <td class='text-align-right-td-class table-td border-bottom-none'>急症已做</td>
+                  </tr>
+              
+                </table>
+        		</div>	
+        		<div class="content-detail-main">
+                <table class='content-table'>
+                  <tr>
+                    <td class='text-align-left-td-class table-td'>开始时间</td>
+                    <td class='text-align-right-td-class table-td'>2018-03-30 15:17:00.0</td>
+                  </tr>
+                  <tr>
+                    <td class='text-align-left-td-class table-td'>开始医生</td>
+                    <td class='text-align-right-td-class table-td'>姚展锋</td>
+                  </tr>
+               
+                  <tr>
+                    <td class='text-align-left-td-class table-td border-bottom-none'>校对护士</td>
+                    <td class='text-align-right-td-class table-td border-bottom-none'>姚展锋</td>
+                  </tr>
+              
+              
+                </table>
+        		</div>	
+
+        		<div class="content-detail-main">
+                <table class='content-table'>
+                  <tr>
+                    <td class='text-align-left-td-class table-td'>停止时间</td>
+                    <td class='text-align-right-td-class table-td'>2018-03-30 15:17:00.0</td>
+                  </tr>
+                  <tr>
+                    <td class='text-align-left-td-class table-td border-bottom-none'>停止医生</td>
+                    <td class='text-align-right-td-class table-td border-bottom-none'>姚展锋</td>
+                  </tr>             
+                </table>
+        		</div>
+            	</div>
+            </div>
+    	  </mt-popup>
    </div>
 </template>
 
 <script>
 import { Picker } from 'vux'
+import nheader from '@/views/components/nheader'
 export default {
   name: 'PatsOrder',
   data () {
@@ -79,10 +165,11 @@ export default {
             ["所有","时间","最近更新"],
             ["所有","当前有效","仅停止","仅撤销","仅作废"]
         ],
-        popupVisible:false
+        popupVisible:false,
+        OrderDetailVisible:false
     }
   },
-  components:{Picker},
+  components:{Picker,nheader},
   methods :{
   	  pickDetail(){
         this.popupVisible = true
@@ -94,10 +181,16 @@ export default {
           this.popupVisible = false
       },
       handleDetailPicker(){
-          this.popupVisible = false
-          this.filter.type = this.detailValue[0]
-          this.filter.project = this.detailValue[1]
-          this.filter.state = this.detailValue[2]
+          this.popupVisible = false;
+          this.filter.type = this.detailValue[0];
+          this.filter.project = this.detailValue[1];
+          this.filter.state = this.detailValue[2];
+      },
+      orderDetail(){
+      	  this.OrderDetailVisible = true;
+      },
+      closeOrderDetail(){
+          this.OrderDetailVisible = false;
       }
   },
   mounted () {
@@ -180,7 +273,8 @@ export default {
 	border-bottom:2px solid rgb(244,244,244);
 }
 .text-align-left-class{
-	float:left
+	float:left;
+
 }
 .text-align-right-class{
 	float:right
@@ -201,8 +295,82 @@ export default {
 .order-detail-td-text-style{
 	text-align:left;
 	font-size:1.3rem;
-	color:rgb(120,120,120)
+	color:rgb(120,120,120);
+
 }
+.orderDetail-div{
+	height:100vh;
+	width:100vw;
+	background:white
+}
+.close{
+  position:relative;
+  height:6vh;
+  width:100vw;
+  line-height:6vh;
+  z-index:99;
+  background:rgb(250,250,250);
+  font-size:1.8rem;
+  border-bottom:1px solid rgb(230,230,230)
+}
+.icon-guanbi{
+  font-size:3rem;
+  float:left
+}
+.content-table{
+  width:95vw;
+  margin-left:5vw;
+
+}
+.content-detail-main{
+  margin-top:2vh;
+  border-top:1px solid rgb(230,230,230);
+  border-bottom:1px solid rgb(230,230,230);
+  background:white
+}
+.text-align-left-td-class{
+  text-align:left;
+  color:rgb(150,150,150)
+
+}
+.content-main-div{
+	display:inline-block;
+	background:rgb(250,250,250);
+	height:93.4vh
+}
+.text-align-right-td-class{
+  text-align:right;
+  padding-right:5vw;
+  font-family:"微软雅黑"
+}
+.table-td{
+  font-size:1.4rem;
+  height:5vh;
+  border-bottom:1px solid rgb(230,230,230)
+}
+.border-bottom-none{
+  border-bottom:none
+}
+.content-detail-title{
+	height:10vh;
+	width:100vw;
+	background:white;
+	border-top:1px solid rgb(230,230,230);
+	margin-top:2vh;
+	border-bottom:1px solid rgb(230,230,230);
+}
+.orderType{
+	width:18vw;
+	height:3.5vh;
+	line-height:3.5vh;
+	background:rgb(254, 110, 161);
+	color:white;
+	font-size:1.3rem
+}
+.content-detail-order-name{
+	font-size:1.8rem
+}
+
 
 </style>
 

@@ -75,7 +75,7 @@
         </mt-popup>
         <mt-popup style="height:100vh;width:100vw;background:white"
           v-model="popupVisibleForm"
-             position="bottom">
+             position="right">
              
               <div class="close">
                 <i class='icon iconfont icon-guanbi' @click='closeForm'></i> 
@@ -86,11 +86,15 @@
           <div class='controller-btn' @click="toggleRightPopup">体温单</div>
           <div class='controller-btn' @click="createForm">新建</div>
         </div>
+        
     </div>
    
 </template>
 
 <script>
+
+
+
 import indicator from 'mint-ui'
 let echarts = require('echarts/lib/echarts')
 
@@ -101,6 +105,7 @@ require('echarts/lib/component/title')
 require('echarts/lib/component/dataZoom')
 require("echarts/lib/component/legendScroll");
 export default {
+
   name: 'PatsThreeTest',
   data () {
     return {
@@ -116,16 +121,13 @@ export default {
       closeTable(){
           this.popupVisible = false
           if (!window.plus) return;
-       
           plus.screen.lockOrientation("portrait-primary");
       },
       createForm(){
-          alert(1)
-          this.proupVisibleForm = true
-    
+          this.popupVisibleForm = true;
       },
       closeForm(){
-          this.proupVisibleForm = false
+          this.popupVisibleForm = false;
       },
       openPicker() {
         this.$refs.picker.open();
