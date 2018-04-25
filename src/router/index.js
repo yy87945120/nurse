@@ -12,6 +12,9 @@ import PatBasicInfo from '@/views/components/work-components/pats-basic-info'
 import PatWorkList from '@/views/components/work-components/pats-work-list'
 import PatOrder from '@/views/components/work-components/pats-order'
 import PatThreeTest from '@/views/components/work-components/pats-three-test'
+import PatNurseRecord from '@/views/components/work-components/pats-nurse-record'
+import PatMedicalRecord from '@/views/components/work-components/pats-medical-record'
+import PatFee from '@/views/components/work-components/pats-fee'
 
 import Test11 from '@/views/components/work-components/pats-echart-test'
 
@@ -123,7 +126,10 @@ export default new Router({
           { path: '/PatBasicInfo', component: PatBasicInfo, name: 'PatBasicInfo' },
           { path: '/PatWorkList', component: PatWorkList, name: 'PatWorkList' },
           { path: '/PatOrder', component: PatOrder, name: 'PatOrder' },
-          { path: '/PatThreeTest', component: PatThreeTest, name: 'PatThreeTest' }
+          { path: '/PatThreeTest', component: PatThreeTest, name: 'PatThreeTest' },
+          { path: '/PatNurseRecord', component: PatNurseRecord, name: 'PatNurseRecord' },
+          { path: '/PatMedicalRecord', component: PatMedicalRecord, name: 'PatMedicalRecord' },
+          { path: '/PatFee', component: PatFee, name: 'PatFee' }
       ]
     },
     {

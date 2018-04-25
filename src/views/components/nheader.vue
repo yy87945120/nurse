@@ -1,9 +1,9 @@
 <template>
     <div id="nheader" style="text-align:center">
-      <div class="layout">
+      <div class="layout" style='position:relative'>
           <i class="icon iconfont icon-back" @click="goback"></i>
           <span class='header-title'><slot name='title'></slot></span>
-          <i style='float:right'><slot name='choice'></slot></i>
+          <i style='position:absolute;right:0px;'><slot name='choice'></slot></i>
     </div>
     </div>
 </template>
@@ -53,12 +53,13 @@ export default {
   border-bottom:1px solid rgb(230,230,230)
 }
 .header-title{
-  font-size:2rem;
+  font-size:1.8rem;
 }
 .icon-back{
-  font-size:3rem;
-  float:left;
-  font-weight:bold;
+  position:absolute;
+  font-size:2.8rem;
+  left:0px
+  
 }
 </style>
 

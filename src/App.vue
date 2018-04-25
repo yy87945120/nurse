@@ -72,7 +72,7 @@ li{
   top: 0;  
   width: 100%;  
   height: 100%;  
-  transition: all .3s cubic-bezier(.55,0,.1,1);  
+  transition: all .1s cubic-bezier(.55,0,.1,1);  
 }
 
 

@@ -35,17 +35,12 @@ export default {
     }
   },
   methods :{
-      refreshData(){
-          setInterval(()=>{
-            this.getInfusionData();
-          },5000)
-      },
       getInfusionData(){
           getInfusion('').then((res) => {
           
           let InfusionData = res.data.InfusionInfo;
           
-        setTimeout(()=>{
+        
           let arr = InfusionData.filter(item=>{
               if(item.needTime < 360 && item.needTime>0){
                 return true;
@@ -54,14 +49,27 @@ export default {
               }
           })
           this.arrLength = arr.length;
-          this.List = arr
-        },500)
+          this.List = arr;
+          let vibrateTime = 0;
+          if(!window.plus){
+            return
+          }else{
+            if(this.arrLength > 0){
+              var main = plus.android.runtimeMainActivity();
+              var SpeechUtility = plus.android.importClass('com.iflytek.cloud.SpeechUtility');
+              SpeechUtility.createUtility(main,"appid=5ad6ddb3");
 
+              var SynthesizerPlayer = plus.android.importClass('com.iflytek.cloud.SpeechSynthesizer');
+              var play = SynthesizerPlayer.createSynthesizer(main, null);
+              play.startSpeaking('当前有'+this.arrLength+'位病人需要关注输液',null);   
+              plus.device.vibrate( 2000 );
+            }
+          }
         })
       }
   },
   mounted () {
-    this.refreshData();
+  
     this.getInfusionData();
   }
 }

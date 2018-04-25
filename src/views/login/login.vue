@@ -1,5 +1,7 @@
 <template>
-    <div id="Login">
+    <div id="Login" style='position:relative'>
+      <img src='../../assets/img/bg.png' id='bg' >
+      
     	<div id="Login-info">
           <div id="username-box">
           <i class="icon iconfont icon-account"></i>
@@ -9,15 +11,17 @@
           <i class="icon iconfont icon-password"></i>
     			<input id="password" class="input-box" v-model="password" type='password' placeholder="密码"/>
           </div>
-    	</div>
-
-
-
-    	<button id="Login-submit" @click="submit">登录</button>
+          <button id="Login-submit" @click="submit">登录</button>
       <div id="text"> 
           <div>NurseApp v1.0.0</div>
           <div>2018-4-1 RRD</div>
       </div>
+    </div>
+
+
+
+   
+    
     </div>
 </template>
 
@@ -70,15 +74,17 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-#Login{
-  //background:rgb(255,246,249);
-  background:url('../../assets/img/bg.png');
-  //background:rgba(40,40,40,.8);
-  background-size: cover;
-  background-repeat:no-repeat;
-
+#bg{
+  
+  position:absolute;
+  top:0px;
+  left:0px;
+  width:37.5rem;
+  height:66.7rem;
+  z-index:-1
 }
 #Login-info{
+  position:absolute;
   margin:17.342rem auto 0rem;
   width:37.5rem;
 }

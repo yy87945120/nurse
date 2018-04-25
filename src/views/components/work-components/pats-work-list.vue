@@ -22,7 +22,32 @@
           <div class='work-list-div'>
             <div class='work-list-main-content' style="display:inline-block">
            <div class='work-list-title'> <div class="layout"><div class='title-float-left-text'><i class='icon iconfont icon-shuye icon-font-style icon-font-active'></i>【18-04-01】 14:00</div><div class='title-float-right-done-text'><i class='icon iconfont icon-zhuyuanhushizhan icon-font-style'></i>&nbsp;姚展锋 14:05</div><div class='title-float-right-ing-text'><i class='icon iconfont icon-shouye9 icon-font-style'></i>&nbsp;60滴/分</div></div></div>
-            <div class='work-list-content'><div class="layout"></div></div>
+            <div class='work-list-content' >
+            
+              <div class="layout">
+                 <table style='width:90vw'>
+                      <tr class='order-main-tr'>
+                        <td class="order-td-text-style">0.9%氯化钠注射液(软袋)</td>
+                        <td class='dosage-td-text-style'>100毫升 100毫升/瓶</td>
+                      </tr>
+                      <tr class='order-main-tr'>
+                        <td class="order-td-text-style">注射用灯盏花素</td>
+                        <td class='dosage-td-text-style'>25毫克 25毫克/支</td>
+                      </tr>
+                 </table>
+                  <table>
+                      <tr>
+                        <td  class='order-detail-td-text-style'>
+                          <i class='icon iconfont icon-linshi' style='font-size:3rem;
+                          position:relative;top:0.5rem;color:rgb(255,142,166)'></i>&nbsp;qd&nbsp;|&nbsp;静脉注射&nbsp;|&nbsp;40ml/h
+                        </td>
+                      </tr>
+               
+                   </table>
+       
+
+              </div>
+            </div>
 
 
 
@@ -73,9 +98,9 @@ export default {
   },
   components:{Picker},
   methods :{
+    
       openPicker() {
         this.$refs.picker.open();
-        
       },
       startDates(){
         console.log(this.pickerValue)
@@ -169,7 +194,6 @@ export default {
   z-index:99
 }
 .date-span{
-  
   display:inline-block;
   background:blue;
   line-height:11vw
@@ -203,16 +227,16 @@ export default {
 .work-list-title{
   width:100vw;
   height:2.668rem;
-  border-top:2px solid rgb(244,244,244);
-  border-bottom:2px solid rgb(244,244,244);
+  border-top:1px solid rgb(230,230,230);
+  border-bottom:1px solid rgb(230,230,230);
   //text-align:left;
   line-height:2.668rem;
   background:white 
 }
 .work-list-content{
-  height:8.004rem;
+
   width:100vw;
-  border-bottom:2px solid rgb(244,244,244);
+  border-bottom:1px solid rgb(230,230,230);
   background:white
 }
 .icon-font-style{
@@ -229,6 +253,24 @@ export default {
 }
 .title-float-right-ing-text{
   float:right
+}
+.order-td-text-style{
+  font-size:1.4rem;
+  text-align:left;
+  width:50vw
+}
+
+.dosage-td-text-style{
+  text-align:right;
+  width:40vw;
+  color:rgb(255,142,166);
+  font-size:1.1rem;
+}
+.order-detail-td-text-style{
+  text-align:left;
+  font-size:1.3rem;
+  color:rgb(120,120,120);
+  height:1vh
 }
 </style>
 

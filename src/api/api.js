@@ -1,7 +1,9 @@
 import axios from 'axios';
 
-let base = '';
-
+let base = '';//本地js开发后台地址
+// let base = 'http://120.24.73.75:8200/CI/index.php';//服务器后台地址
+// let base = 'http://localhost/CI/index.php';//本地后台地址
+// export const test = params => { return axios.post(`${base}/Message/show`).then(res => res.data);};//调试
 export const requestLogin = params => { return axios.post(`${base}/login`, params).then(res => res.data); };
 
 export const getInfusion = params => { return axios.get(`${base}/getInfusion` , {params: params})};
@@ -9,6 +11,8 @@ export const getInfusion = params => { return axios.get(`${base}/getInfusion` , 
 export const getPatInfo = params => { return axios.get(`${base}/getPatInfo` , {params: params})};
 
 export const getOEOrderItm = params => { return axios.get(`${base}/getOEOrderItm` , {params: params})};
+
+
 // export const getUserListPage = params => { return axios.get(`${base}/user/listpage`, { params: params }); };
 
 // export const removeUser = params => { return axios.get(`${base}/user/remove`, { params: params }); };

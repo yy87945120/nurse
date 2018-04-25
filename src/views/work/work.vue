@@ -37,6 +37,7 @@
 
 <script>
 import { Indicator } from 'mint-ui';
+
 import notice from '@/views/components/infusion-notice';
 export default {
   name: 'Work',
@@ -48,11 +49,12 @@ export default {
       ThreeTestNav:"三测单",
       InfusionNav:"输液管理",
       NurseFormNav:"护理记录单",
-      ImportantInformNav:"重要通知"
+      ImportantInformNav:"重要通知",
       
     }
   },
   methods :{
+     
    	  delay(titleText,route){
    	  	Indicator.open();
    	  
@@ -63,7 +65,7 @@ export default {
    	  }
   },
   mounted () {
-
+    
   }
 }
 </script>
