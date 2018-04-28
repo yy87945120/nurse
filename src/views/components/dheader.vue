@@ -1,9 +1,9 @@
 <template>
     <div id="dheader">
       <div class='layout' style='position:relative'>
-  		  <i class='icon iconfont icon-guanbi' @click = 'close'></i>
-        <p class='title'><slot name="title" ></slot></p>
-        <p style='float:right'><slot name="icon"></slot></p>
+  		  <i class='icon iconfont icon-guanbi' style='float:left' @click = 'close'></i>
+        <span class='title'><slot name="title" ></slot></span>
+        <i style='position:absolute;right:0px;' ><slot name="icon"></slot></i>
       </div>
     </div>
 </template>
@@ -31,6 +31,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 #dheader{
+
   height:4.002rem;
   width:100vw;
   background:rgb(250,250,250);
@@ -44,7 +45,6 @@ export default {
 
 }
 .title{
-  text-align:center;
   font-size:1.8rem
 }
 </style>

@@ -19,6 +19,7 @@ import PatFee from '@/views/components/work-components/pats-fee'
 import Test11 from '@/views/components/work-components/pats-echart-test'
 
 import ThreeTest from '@/views/work/three-test-sys/three-test'
+import PersonalThreeTest from '@/views/work/three-test-sys/personal-three-test'
 import WorkList from '@/views/work/work-list-sys/work-list'
 import NurseRecord from '@/views/work/nurse-record-sys/nurse-record'
 import Infusion from '@/views/work/infusion-sys/infusion'
@@ -136,6 +137,11 @@ export default new Router({
       path: '/Test11',
       name: 'Test11',
       component:Test11
+    },
+    {
+      path:'/PersonalThreeTest',
+      name:'PersonalThreeTest',
+      component:PersonalThreeTest
     }
 
     

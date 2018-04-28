@@ -181,7 +181,7 @@ export default {
         filter:{
           date:0,
           ward:'普外科护理一单元',
-          order:'所有'
+          order:'按消耗量'
         },
         detailValue:[],
         detailArr:[

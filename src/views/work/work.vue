@@ -2,7 +2,8 @@
     <div id="Work">
     	<div id='main-header'>
          <div class="layout">
-         <div id="title"> <span><i class='icon iconfont icon-shouye11'></i></span>护士app</div>
+         <div id="title"> <span><i class='icon iconfont icon-shouye11' style='font-size:2rem'></i></span>护士app<i class='icon iconfont icon-shouye14' style='float:right;font-size:2.3rem;margin-top:.3vh' @click='notice'></i></div>
+         
         </div>
        </div>
         <div class="layout">
@@ -31,7 +32,7 @@
     	   <div class="hr-bar"></div>
         <!--<div class='title-hr'><div class="layout"><div class="title-hr-bar"></div><div class='title-hr-word'>待办事务</div></div></div>-->
          <!--<div class='title-hr'><div class="title-hr-bar"></div><div class='title-hr-word'>公告</div></div>-->
-
+        
     </div>
 </template>
 
@@ -49,8 +50,7 @@ export default {
       ThreeTestNav:"三测单",
       InfusionNav:"输液管理",
       NurseFormNav:"护理记录单",
-      ImportantInformNav:"重要通知",
-      
+      ImportantInformNav:"重要通知"
     }
   },
   methods :{
@@ -62,10 +62,14 @@ export default {
    	  		this.$router.push({name:route, params:{ title: titleText }})
             Indicator.close();   
         },500)
-   	  }
+   	  },
+      notice(){
+          console.log(1)
+      }
+      
   },
   mounted () {
-    
+
   }
 }
 </script>

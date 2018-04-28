@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 let base = '';//本地js开发后台地址
-// let base = 'http://120.24.73.75:8200/CI/index.php';//服务器后台地址
-// let base = 'http://localhost/CI/index.php';//本地后台地址
-// export const test = params => { return axios.post(`${base}/Message/show`).then(res => res.data);};//调试
+// let baseTest = 'http://120.24.73.75:8200/CI/index.php';//服务器后台地址
+// let baseTest = 'http://localhost:8200/CI/index.php';//本地后台地址
+// export const test = params => { return axios.post(`${baseTest}/Message/show`).then(res => res.data);};//调试
 export const requestLogin = params => { return axios.post(`${base}/login`, params).then(res => res.data); };
 
 export const getInfusion = params => { return axios.get(`${base}/getInfusion` , {params: params})};

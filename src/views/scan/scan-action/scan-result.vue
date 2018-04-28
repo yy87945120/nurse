@@ -160,6 +160,7 @@
                 </div>
                  <div class="layout"> 
                     </div>
+                 
              </div>
           </mt-tab-container-item>
           <mt-tab-container-item id="tab-process">
@@ -169,28 +170,38 @@
                   <div class='step-date'>
                     2018-04-24(过滤器过滤得出今天，昨天)
                   </div>
-                  <table>
-                    <tbody>
-                      <tr>
-                        <td style='position:relative;background:rgb(242,242,242);padding-top:20px;width:18vw;' valign="top"><div style='position:absolute;top:0px;z-index:9;background:rgb(242,242,242);width:18vw;'>10:05</div><div style='position:absolute;width:18vw;height:100%;background:red;top:0px'></div></td>
-                        <td style='background:rgb(242,242,242);' rowspan=2 valign="top"><div>病人情况稳定，无特殊要求病人情况稳定，无特殊要求病人情况稳定，无特殊要求病人情况稳定，无特殊要求病人情况稳定，无特殊要求病人情况稳定，无特殊要求病人情况稳定，无特殊要求病人情况稳定，无特殊要求v</div><div>10:40&nbsp;姚展锋</div></td>
+                  
+                  <table class='table-step' v-for='(item,index) in 6' >
+                    
+                      <tr style='display:inline-block;position:relative;clear:both'>
+                        <td class='step-table-step-td'  style='clear:both;float:left'  valign="top">1111
+                            <div class='step-table-time-div'><div class='step-table-time'>10:05</div><div class='triangle-left'></div></div>
+                            <div  class='step-table-td-bar-div'><div class='step-table-td-bar' v-show='index != 5'></div></div>
+                            <div class='table-hr-div' v-show='index != 5'><div class='table-hr'></div></div>
+                        </td>
+                        <td class='step-table-content-td' style='postion:absolute;float:right'  rowspan=2 valign="top">
+                          <div class='step-table-content'>
+                             巡视:病人情况稳定
+                          </div>
+                          <div class='step-table-content-nurse'>10:40&nbsp;姚展锋</div></td>
                       </tr>
                       
-                      </tbody>
+                     
                   </table>
                   
+                 
               </div>
             </div>
           </mt-tab-container-item>
           </mt-tab-container>
       
     </div>
-    <div id="footer-scan"  >
-        <div class='footer-control-operation-div'>
-            <div class='footer-control-operation-item'><div class='footer-control-operation-item-icon-div'><i class='icon iconfont icon-yanjing operation-icon'></i></div><div class='footer-control-operation-item-word'>添加巡视</div></div>
-            <div class='footer-control-operation-item'><div class='footer-control-operation-item-icon-div'><i class='icon iconfont icon-guanlianfujian operation-icon'></i></div><div class='footer-control-operation-item-word'>接瓶</div></div>
-            <div class='footer-control-operation-item'><div class='footer-control-operation-item-icon-div'><i class='icon iconfont icon-zanting1 operation-icon'></i></div><div class='footer-control-operation-item-word'>暂停</div></div>
-            <div class='footer-control-operation-item footer-control-operation-item-stop'>结束</div>
+    <div id="footer-scan">
+        <div class='footer-control-operation-div' >
+            <div class='footer-control-operation-item' @click='check'><div class='footer-control-operation-item-icon-div'><i class='icon iconfont icon-yanjing operation-icon'></i></div><div class='footer-control-operation-item-word'>添加巡视</div></div>
+            <div class='footer-control-operation-item' @click='GoOn'><div class='footer-control-operation-item-icon-div'><i class='icon iconfont icon-guanlianfujian operation-icon'></i></div><div class='footer-control-operation-item-word'>接瓶</div></div>
+            <div class='footer-control-operation-item' @click='stop'><div class='footer-control-operation-item-icon-div'><i class='icon iconfont icon-zanting1 operation-icon'></i></div><div class='footer-control-operation-item-word' >暂停</div></div>
+            <div class='footer-control-operation-item footer-control-operation-item-stop' @click='finish'>结束</div>
         </div>
         <div class='footer-execute-div' @click="execute" v-if='false'>
           执行
@@ -253,7 +264,8 @@ import nheader from '@/views/components/nheader';
 import scanpha from '@/views/scan/scan-action/scan-pha';
 import {getPatInfo, getOEOrderItm} from '@/api/api';
 import { Popup, TransferDom } from 'vux';
-import { Indicator } from 'mint-ui';
+import { Indicator,MessageBox } from 'mint-ui';
+
 export default {
   name: 'scanResult',
   directives: {
@@ -268,23 +280,26 @@ export default {
       nullOEOI:true,
       router:'goback',
       active:'tab-preview',
-      showExecute:false
+      showExecute:false,
+      stepList:[
+
+      ]
     }
   },
   
   methods :{
-                loadPatInfo() {
-                        Indicator.open('加载患者信息...');
-                        let pars = this.$route.params.patId
+        loadPatInfo() {
+            Indicator.open('加载患者信息...');
+             let pars = this.$route.params.patId
                         
-                        getPatInfo(pars).then((res) => {
+            getPatInfo(pars).then((res) => {
 
-                                setTimeout(()=>{
-                                        this.PatInfoList = res.data.PatInfo;
-                                        Indicator.close();
-                                },500);                                 
-                        })
-                },
+               setTimeout(()=>{
+                   this.PatInfoList = res.data.PatInfo;
+                   Indicator.close();
+             },500);                                 
+        })
+      },
       execute(){
         this.showExecute = true
       },
@@ -316,9 +331,55 @@ export default {
      },
      changeTab(par){
         this.active = par;
-        console.log(this.active)
-     }
+       
+     },
+     stop(){
+      MessageBox({
+        $type:'prompt',
+        title:'暂停输液',
+        message:'请填写暂停原因',
+        showCancelButton:true,
+        inputPattern: /\S/,    //正则条件
+        inputErrorMessage:'原因不能为空',
+        showInput:true
+    }).then(({ value, action }) => {
+        console.log(value);
+    }).catch(()=>{
+    
+    });
+        
+    },
+    finish(){
+        MessageBox({
+        $type:'confirm',
+        title:'结束输液',
+        message:'是否结束输液',
+        showCancelButton:true
+    }).then(({ value, action }) => {
+        
+    }).catch(()=>{
+    
+    });
+    },
+    GoOn(){
+        
+    },
+    check(){
+        MessageBox({
+        $type:'prompt',
+        title:'添加巡视',
+        message:'不填默认为无异常',
+        showCancelButton:true,
+        inputPlaceholder:'患者未诉任何不适',
+        showInput:true
+    }).then(({ value, action }) => {
+        console.log(value);
+    }).catch(()=>{
+    
+    });
+    }
   },
+
   mounted () {
                 this.loadPatInfo();
   }
@@ -467,7 +528,7 @@ export default {
     height:4.5rem;
     border-left:1px solid rgb(230,230,230);
     float:left;
-    margin-top:0.169rem;
+    
 }
 .footer-control-operation-item-icon-div{
     margin-top:0.8004rem
@@ -639,6 +700,83 @@ export default {
   background:blue;
   font-size:1.4rem
 }
-
+.step-table-step-td{
+  display:block;
+  height:100%;
+  width:18vw;
+  clear:both
+}
+.step-table-time-div{
+  position:absolute;
+  top:0px;
+  z-index:9;
+  background:rgb(242,242,242);
+  width:12vw;
+  border-radius:3px;
+  height:2.001rem;
+  line-height:2.001rem;
+  border:1px solid rgb(230,230,230);
+  left:2.8%
+}
+.step-table-time{
+  position:absolute;
+  left:50%;
+  width:12vw;
+  margin-left:-6vw
+}
+.step-table-td-bar-div{
+  position:absolute;
+  width:18vw;
+  height:110%;
+  top:0px;
+}
+.step-table-td-bar{
+  background:rgb(211,211,211);
+  position:absolute;
+  height:100%;
+  width:.6vw;
+  left:50%;
+  margin-left:-0.3vw  
+}
+.triangle-left{
+  position:absolute;
+  right:-3.3vw;
+  top:0.3335rem;
+  width: 0;
+  height: 0;
+  border-top: 2vw solid transparent;
+  border-right: 4vw solid rgb(242,242,242);
+  border-bottom: 2vw solid transparent; 
+}
+.step-table-content-td{
+  background:rgb(242,242,242);
+  border:1px solid rgb(230,230,230);
+  width:63vw;
+  border-radius:3px;
+  text-align:left;
+  padding:0.2001rem 0.4998rem
+}
+.table-hr-div{
+  width:18vw;
+  height:2vh;
+  position:absolute;
+  bottom:-2.6vh;
+}
+.table-hr{
+  height:2vh;
+  margin:0px auto;
+  width:.6vw;
+  background:rgb(211,211,211);
+}
+.table-step{
+  margin-bottom:2vh;
+}
+.step-table-content{
+  font-size:1.4rem;
+}
+.step-table-content-nurse{
+  font-size:1.4rem;
+  color:rgb(150,150,150)
+}
 </style>
 

@@ -13,6 +13,7 @@
     		</table></search>
     		</div>
     	</div>
+     
     	<div id="pats-list">
     		  <div class='pats-list-div' v-for='item in pats' @click="choosePats(item)">
             <table class="pats-list-table">
@@ -33,7 +34,7 @@
               </tr>
             </table>
         </div>
-     
+    
     		
     	</div>
     </div>
