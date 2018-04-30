@@ -19,14 +19,16 @@ Mock.bootstrap();
 
 
 // import Indicator from 'mint-ui/lib/Indicator';
-import { Indicator, Swipe, SwipeItem, TabContainer, TabContainerItem, DatetimePicker, Popup } from 'mint-ui';
-Vue.use(Indicator, Swipe, SwipeItem, TabContainer, TabContainerItem, DatetimePicker, Popup);
+import { Indicator, Swipe, SwipeItem, TabContainer, TabContainerItem, DatetimePicker, Popup, Badge, CellSwipe } from 'mint-ui';
+Vue.use(Indicator, Swipe, SwipeItem, TabContainer, TabContainerItem, DatetimePicker, Popup,Badge, CellSwipe);
 Vue.component(Swipe.name, Swipe);
 Vue.component(SwipeItem.name, SwipeItem);
 Vue.component(TabContainer.name, TabContainer);
 Vue.component(TabContainerItem.name, TabContainerItem);
 Vue.component(DatetimePicker.name, DatetimePicker);
 Vue.component(Popup.name, Popup);
+Vue.component(Badge.name, Badge);
+Vue.component(CellSwipe.name, CellSwipe);
 // Vue.component(Indicator.name, Indicator)
 
 //导入全局过滤器注册

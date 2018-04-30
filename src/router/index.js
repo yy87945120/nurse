@@ -5,8 +5,8 @@ import Login from '@/views/login/login'
 
 //工作台组件 开始
 import Work from '@/views/work/work'
-import Pats from '@/views/work/pats-sys/pats'
 
+import Pats from '@/views/work/pats-sys/pats'
 import PatsInfo from '@/views/work/pats-sys/pats-info'
 import PatBasicInfo from '@/views/components/work-components/pats-basic-info'
 import PatWorkList from '@/views/components/work-components/pats-work-list'
@@ -16,14 +16,16 @@ import PatNurseRecord from '@/views/components/work-components/pats-nurse-record
 import PatMedicalRecord from '@/views/components/work-components/pats-medical-record'
 import PatFee from '@/views/components/work-components/pats-fee'
 
-import Test11 from '@/views/components/work-components/pats-echart-test'
+
 
 import ThreeTest from '@/views/work/three-test-sys/three-test'
 import PersonalThreeTest from '@/views/work/three-test-sys/personal-three-test'
 import WorkList from '@/views/work/work-list-sys/work-list'
 import NurseRecord from '@/views/work/nurse-record-sys/nurse-record'
 import Infusion from '@/views/work/infusion-sys/infusion'
+
 import ImportantInform from '@/views/work/important-inform-sys/important-inform'
+import InformItem from '@/views/work/important-inform-sys/inform-item'
 //工作台组件 结束
 
 //扫码组件 开始
@@ -56,7 +58,7 @@ export default new Router({
             { path: '/Work', component: Work, name: 'Work' },
 
             // { path: '/Comulity', component: Comulity, name: 'Comulity' },
-           
+              
             { path: '/Mark', component: Mark, name: 'Mark' },
             { path: '/Mine', component: Mine, name: 'Mine' },
       ]
@@ -134,14 +136,14 @@ export default new Router({
       ]
     },
     {
-      path: '/Test11',
-      name: 'Test11',
-      component:Test11
-    },
-    {
       path:'/PersonalThreeTest',
       name:'PersonalThreeTest',
       component:PersonalThreeTest
+    },
+     {
+      path:'/InformItem',
+      name:'InformItem',
+      component:InformItem
     }
 
     

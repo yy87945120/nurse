@@ -82,10 +82,10 @@
                       <td class='table-title-normal'>呼吸</td>
                     </tr>
                     <tr v-for='item in 10'>
-                      <td>1001床&nbsp;姚展锋</td>
-                      <td><input type='text'/></td>
-                      <td><input type='text'/></td>
-                      <td><input type='text'/></td>
+                      <td class='table-content-td'>1001床&nbsp;姚展锋</td>
+                      <td class='table-content-td'><input type='text' class='table-td-input'/></td>
+                      <td class='table-content-td'><input type='text' class='table-td-input'/></td>
+                      <td class='table-content-td'><input type='text' class='table-td-input'/></td>
                       
                     </tr>
                 </table>
@@ -147,6 +147,18 @@ export default {
       ],
       popupVisible:false,
       res:[],
+      formList:[
+          {
+              "prj":'呼吸',
+              "formRes":[
+                    {
+                          "index":0,
+                          "value":''
+                    }
+              ]
+          }
+
+      ],
       pats:[
         {
           name:'姚展锋',
@@ -242,6 +254,9 @@ export default {
       },
       choiceItem(){
           console.log(1)
+      },
+      ifEmpty(){
+
       }
 
       
@@ -404,13 +419,13 @@ export default {
   overflow-y:auto
 }
 .newRecord-div{
-  height:100vh;
+  height:66.7rem;
   width:100vw;
   background:white
 }
 .scroll-div-new-record{
   background:white;
-  height:79vh;
+  height:52.69rem;
   width:100vw;
   overflow-y:auto;
 }
@@ -418,7 +433,7 @@ export default {
   position:absolute;
   z-index:101;
   width:100vw;
-  height:100vh;
+  height:66.7rem;
   background:red;
   top:0px;
   background:#000;
@@ -431,7 +446,27 @@ export default {
   background:rgb(250,250,250)
 }
 .table-title-name{
-  width:12vw;
+  width:25vw;
+  font-size:1.4rem
+}
+.table-content-td{
+  position:relative;
+  width:25vw;
+  height:2.668rem;
+  font-size:1.2rem
+}
+.table-title-normal{
+  font-size:1.4rem
+}
+.table-td-input{
+  position:absolute;
+  width:80%;
+  height:90%;
+  top:0px;
+  left:5%;
+  padding-left:5px;
+  padding-right:5px;
+  text-align:center
 }
 </style>
 

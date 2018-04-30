@@ -2,7 +2,7 @@
     <div id="PersonalThreeTest">
         <nheader :routechoice='router'><p slot='title'>1001床 姚展锋</p></nheader>
         <ptt style='margin-top:6.3vh'></ptt>
-  
+    
     </div>
 </template>
 

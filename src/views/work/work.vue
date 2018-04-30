@@ -23,7 +23,7 @@
             <li @click="delay(ThreeTestNav,'ThreeTest')"><div class="circle circle-tt"><i class="icon iconfont icon-shouye13 icon-nav"></i></div><p class="nav-text">{{ThreeTestNav}}</p></li>
             <li @click="delay(InfusionNav,'Infusion')"><div class="circle circle-sy"><i class="icon iconfont icon-shuye icon-nav"></i></div><p class="nav-text">{{InfusionNav}}</p></li>
             <li @click="delay(NurseFormNav,'NurseRecord')" ><div class="circle circle-nr"><i class="icon iconfont icon-icon9 icon-nav"></i></div><p class="nav-text">{{NurseFormNav}}</p></li>
-            <li @click="delay(ImportantInformNav,'Test11')" ><div class="circle circle-ii"><i class="icon iconfont icon-shouye19 icon-nav"></i></div><p class="nav-text">{{ImportantInformNav}}</p></li>
+            <li @click="delay(ImportantInformNav,'ImportantInform')" ><div class="circle circle-ii"><i class="icon iconfont icon-shouye19 icon-nav"></i></div><p class="nav-text">{{ImportantInformNav}}</p></li>
           </ul>
     		</div>
       </div>

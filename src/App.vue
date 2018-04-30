@@ -43,9 +43,7 @@ html{
 }
 
 
-.vux-no-group-title{
-  padding-top:10px !important
-}
+
 
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -115,4 +113,17 @@ li{
 	opacity: 0;
 }
 
+
+.mint-cell-swipe-button{
+  line-height:9vh;
+  font-size:1.4rem;
+  padding:0px 4vw;
+
+}
+.vux-no-group-title{
+  padding-top:10px !important
+}
+.mint-cell-wrapper{
+  background-origin:border-box
+}
 </style>
