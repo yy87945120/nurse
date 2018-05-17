@@ -22,7 +22,8 @@
 
 <script>
 import {Countdown} from 'vux';
-import { getInfusion } from '@/api/api';
+import {getConfig} from '@/config';
+//import { getInfusion } from '@/api/api';
 export default {
   name: 'InfusionNotice',
   components:{Countdown},
@@ -36,6 +37,9 @@ export default {
   },
   methods :{
       getInfusionData(){
+        let config = getConfig();
+
+        
           getInfusion('').then((res) => {
           
           let InfusionData = res.data.InfusionInfo;
@@ -55,22 +59,30 @@ export default {
             return
           }else{
             if(this.arrLength > 0){
-              var main = plus.android.runtimeMainActivity();
-              var SpeechUtility = plus.android.importClass('com.iflytek.cloud.SpeechUtility');
-              SpeechUtility.createUtility(main,"appid=5ad6ddb3");
+              if(config.voiceOn){
+                 var main = plus.android.runtimeMainActivity();
+                var SpeechUtility = plus.android.importClass('com.iflytek.cloud.SpeechUtility');
+                SpeechUtility.createUtility(main,"appid=5ad6ddb3");
 
-              var SynthesizerPlayer = plus.android.importClass('com.iflytek.cloud.SpeechSynthesizer');
-              var play = SynthesizerPlayer.createSynthesizer(main, null);
-              play.startSpeaking('当前有'+this.arrLength+'位病人需要关注输液',null);   
-              plus.device.vibrate( 2000 );
+                var SynthesizerPlayer = plus.android.importClass('com.iflytek.cloud.SpeechSynthesizer');
+                var play = SynthesizerPlayer.createSynthesizer(main, null);
+                play.startSpeaking('当前有'+this.arrLength+'位病人需要关注输液',null);
+              }
+              if(config.shakeOn){
+                plus.device.vibrate( 2000 );
+              }
+                
+              
+              }
             }
-          }
+        
         })
-      }
+     
+        }
   },
   mounted () {
   
-    this.getInfusionData();
+    //this.getInfusionData();
   }
 }
 </script>

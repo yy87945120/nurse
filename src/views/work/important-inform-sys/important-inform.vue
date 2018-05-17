@@ -15,8 +15,8 @@
     }]"><div class='content-div' @click='informDetail(item)'>
   	<div class='content-img-div'>img</div>
   	<div class='content-title-word-div'>
-  		<div class='content-word'>{{title}}</div>
-  		<div>最新通知简介</div>
+  		<div class='content-word' style='margin-top:.8vh'>{{title}}</div>
+  		<div style='margin-top:1vh'>最新通知简介</div>
   	</div>
   	<div class='content-time-notice-div'>
   		<div class='content-time'>16:40</div>
@@ -108,7 +108,7 @@ export default {
 	position:absolute;
 	height:9vh;
 	width:90%;
-	line-height:4vh;
+	top:0px;
 	left:5%;
 }
 .content-img-div{
@@ -155,7 +155,9 @@ export default {
 	background:rgb(244,67,54);
 	border-radius:40%
 }
-
+.content-notice-div{
+  margin-top:1.5vh
+}
 </style>
 
 

@@ -3,7 +3,7 @@
       <div class="layout" style='position:relative'>
           <i class="icon iconfont icon-back" @click="goback"></i>
           <span class='header-title'><slot name='title'></slot></span>
-          <i style='position:absolute;right:0px;'><slot name='choice'></slot></i>
+          <span style='position:absolute;right:0px;'><slot name='choice'></slot></span>
     </div>
     </div>
 </template>

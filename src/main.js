@@ -6,8 +6,8 @@ import App from './App'
 //路由引入
 import router from './router'
 //mock随机数据生成器
-import Mock from './mock/mock'
-Mock.bootstrap();
+// import Mock from './mock/mock'
+// Mock.bootstrap();
 
 //vuex公共状态插件引入
 // import store from './vuex'
@@ -19,8 +19,8 @@ Mock.bootstrap();
 
 
 // import Indicator from 'mint-ui/lib/Indicator';
-import { Indicator, Swipe, SwipeItem, TabContainer, TabContainerItem, DatetimePicker, Popup, Badge, CellSwipe } from 'mint-ui';
-Vue.use(Indicator, Swipe, SwipeItem, TabContainer, TabContainerItem, DatetimePicker, Popup,Badge, CellSwipe);
+import { Indicator, Swipe, SwipeItem, TabContainer, TabContainerItem, DatetimePicker, Popup, Badge, CellSwipe, Field, Switch, Radio,Checklist} from 'mint-ui';
+Vue.use(Indicator, Swipe, SwipeItem, TabContainer, TabContainerItem, DatetimePicker, Popup,Badge, CellSwipe, Field, Switch, Radio,Checklist);
 Vue.component(Swipe.name, Swipe);
 Vue.component(SwipeItem.name, SwipeItem);
 Vue.component(TabContainer.name, TabContainer);
@@ -29,6 +29,10 @@ Vue.component(DatetimePicker.name, DatetimePicker);
 Vue.component(Popup.name, Popup);
 Vue.component(Badge.name, Badge);
 Vue.component(CellSwipe.name, CellSwipe);
+Vue.component(Field.name, Field);
+Vue.component(Switch.name, Switch);
+Vue.component(Radio.name, Radio);
+Vue.component(Checklist.name, Checklist);
 // Vue.component(Indicator.name, Indicator)
 
 //导入全局过滤器注册
@@ -40,6 +44,7 @@ Object.keys(filter).forEach(key => {
 
 //系统配置
 Vue.config.productionTip = false
+
 
 
 Vue.filter('sexFormat', function (value) {

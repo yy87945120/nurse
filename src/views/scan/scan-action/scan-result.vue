@@ -174,7 +174,7 @@
                   <table class='table-step' v-for='(item,index) in 6' >
                     
                       <tr style='display:inline-block;position:relative;clear:both'>
-                        <td class='step-table-step-td'  style='clear:both;float:left'  valign="top">1111
+                        <td class='step-table-step-td'  style='clear:both;float:left'  valign="top">
                             <div class='step-table-time-div'><div class='step-table-time'>10:05</div><div class='triangle-left'></div></div>
                             <div  class='step-table-td-bar-div'><div class='step-table-td-bar' v-show='index != 5'></div></div>
                             <div class='table-hr-div' v-show='index != 5'><div class='table-hr'></div></div>
@@ -262,7 +262,7 @@
 <script>
 import nheader from '@/views/components/nheader';
 import scanpha from '@/views/scan/scan-action/scan-pha';
-import {getPatInfo, getOEOrderItm} from '@/api/api';
+//import {getPatInfo, getOEOrderItm} from '@/api/api';
 import { Popup, TransferDom } from 'vux';
 import { Indicator,MessageBox } from 'mint-ui';
 
@@ -381,7 +381,7 @@ export default {
   },
 
   mounted () {
-                this.loadPatInfo();
+                //this.loadPatInfo();
   }
 }
 </script>
@@ -709,7 +709,7 @@ export default {
 .step-table-time-div{
   position:absolute;
   top:0px;
-  z-index:9;
+  z-index:1;
   background:rgb(242,242,242);
   width:12vw;
   border-radius:3px;

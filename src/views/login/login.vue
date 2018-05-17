@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { requestLogin } from '@/api/api';
+
 import { Indicator } from 'mint-ui';
 export default {
   name: 'Login',
@@ -46,24 +46,67 @@ export default {
    		
    	},
     submit(){
-     
-         
-        let loginParams = { username: this.username, password: this.password };
-        requestLogin(loginParams).then(data => {
-         Indicator.open('登录中..');
-          let { msg, code, user } = data;
-          if (code !== 200) {
-                 this.tip="账号或者密码错误";
+        Indicator.open('登录中..');
+        let _this = this;
+        let params = {
+          'username':_this.username,
+          'password':_this.password
+        };
+        $.ajax({
+          data:params,
+          type:"post",
+          url:"http://120.24.73.75:8200/CI/index.php/BasicInfo/login",
+          datatype:"json",
+          success:function(data){
+          let rtn = JSON.parse(data);
+          
+          let user = rtn.res;
+          let status = rtn.status;
+          let dep = rtn.dep;
+          let msg = rtn.err_msg;
+          console.log(user);
+          if (!status) {
+                if(msg==-1){
+                  Indicator.open('账号密码错误');
+                  _this.password='';
+                 setTimeout(() => {
+                Indicator.close();
+                },2000)
+                }
+                 if(msg==-2){
+                  Indicator.open('非护理人员无权限登录');
+                  _this.password='';
+                 setTimeout(() => {
+                Indicator.close();
+                },2000)
+                }
+                 if(msg==-3){
+                  Indicator.open('无绑定病区科室');
+                  _this.password='';
+                 setTimeout(() => {
+                Indicator.close();
+                },2000)
+                }
+                 
               } else {
-                this.tip="登录成功";
+                Indicator.open('登录成功');
                 setTimeout(() => {
                 Indicator.close();
                   sessionStorage.setItem('user', JSON.stringify(user));
-                  this.$router.push({ path: '/Home' });
+                  localStorage.setItem('user', JSON.stringify(user));
+                  localStorage.setItem('dep', dep);
+                  _this.$router.push({ path: '/Home' });
                 },1000)      
               }
-            });
-     
+
+    
+
+  },
+  error:function(){
+
+  }
+        })
+       
         
     }
   },

@@ -3,7 +3,7 @@
       <div class='layout' style='position:relative'>
   		  <i class='icon iconfont icon-guanbi' style='float:left' @click = 'close'></i>
         <span class='title'><slot name="title" ></slot></span>
-        <i style='position:absolute;right:0px;' ><slot name="icon"></slot></i>
+        <span style='position:absolute;right:0px;' ><slot name="icon"></slot></span>
       </div>
     </div>
 </template>

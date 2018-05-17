@@ -30,7 +30,7 @@
     	
      <div class="page-tab-container" style="">   
      <div class="layout">
-     <mt-tab-container v-model="active" swipeable>
+     <mt-tab-container v-model="active" style='height:79vh' swipeable>
   <mt-tab-container-item id="tab-list">
       <div class='layout'>
          <div class='infusion-main-content'>
@@ -61,7 +61,7 @@
               
           </div>
           <div class='infusion-main-content'>
-              <table class='infusion-main-content-table'>
+              <table class='infusion-main-content-table' @click='actionShow'>
                   <tr class='infusion-main-content-table-first-tr'>
                       <td class='pats-bed'>1001床</td>
                       <td class='pats-name'>姚展锋</td>
@@ -145,12 +145,123 @@
             <div class='detail-picker-btn' @click="cancelDetailPicker">取消</div><div class='detail-picker-btn' @click="handleDetailPicker">确认</div>
             <picker :data='detailArr' v-model='detailValue' @on-change='detailChange' class='detailPicker'></picker> 
         </mt-popup>
+
+
+        <mt-popup v-model="actionVisible" position="bottom">
+            <div class='actionChoice-div'>
+              <div class='actionChoice-choice-div' @click='showInfusionOperation'>输液操作</div>
+
+            <div class='actionChoice-choice-div' @click='showOrderDetail'>查看医嘱详情</div>
+                
+            </div>
+         
+        </mt-popup>
+
+        <mt-popup v-model="OrderDetailVisible" position="right">
+            <div class='orderDetail-div'>
+              
+             <div class="close">
+                <div class='layout'>
+                  <i class='icon iconfont icon-guanbi' @click='closeOrderDetail'></i>
+                  医嘱详情
+                </div>      
+              </div>
+              <div class='content-main-div'>
+              <div class="content-detail-title">
+                
+                  <div class='orderType'>
+                    临时
+                  </div>
+                <div class='layout'>  
+                  <div class='content-detail-order-name'>
+                    DR头颅正位*(1)
+                  </div>
+              </div>
+              </div> 
+                <div class="content-detail-main">
+                <table class='content-table'>
+                  <tr>
+                    <td class='text-align-left-td-class table-td'>医嘱序号</td>
+                    <td class='text-align-right-td-class table-td'>3</td>
+                  </tr>
+                  <tr>
+                    <td class='text-align-left-td-class table-td'>当前状态</td>
+                    <td class='text-align-right-td-class table-td'>执行</td>
+                  </tr>
+               
+                  <tr>
+                    <td class='text-align-left-td-class table-td'>途径</td>
+                    <td class='text-align-right-td-class table-td'>99ml</td>
+                  </tr>
+                  <tr>
+                    <td class='text-align-left-td-class table-td'>频次</td>
+                    <td class='text-align-right-td-class table-td'>99ml</td>
+                  </tr>
+                  <tr>
+                    <td class='text-align-left-td-class table-td'>执行时间</td>
+                    <td class='text-align-right-td-class table-td'>99ml</td>
+                  </tr>
+                  <tr>
+                    <td class='text-align-left-td-class table-td border-bottom-none'>医生说明</td>
+                    <td class='text-align-right-td-class table-td border-bottom-none'>急症已做</td>
+                  </tr>
+              
+                </table>
+            </div>  
+            <div class="content-detail-main">
+                <table class='content-table'>
+                  <tr>
+                    <td class='text-align-left-td-class table-td'>开始时间</td>
+                    <td class='text-align-right-td-class table-td'>2018-03-30 15:17:00.0</td>
+                  </tr>
+                  <tr>
+                    <td class='text-align-left-td-class table-td'>开始医生</td>
+                    <td class='text-align-right-td-class table-td'>姚展锋</td>
+                  </tr>
+               
+                  <tr>
+                    <td class='text-align-left-td-class table-td border-bottom-none'>校对护士</td>
+                    <td class='text-align-right-td-class table-td border-bottom-none'>姚展锋</td>
+                  </tr>
+              
+              
+                </table>
+            </div>  
+
+            <div class="content-detail-main">
+                <table class='content-table'>
+                  <tr>
+                    <td class='text-align-left-td-class table-td'>停止时间</td>
+                    <td class='text-align-right-td-class table-td'>2018-03-30 15:17:00.0</td>
+                  </tr>
+                  <tr>
+                    <td class='text-align-left-td-class table-td border-bottom-none'>停止医生</td>
+                    <td class='text-align-right-td-class table-td border-bottom-none'>姚展锋</td>
+                  </tr>             
+                </table>
+            </div>
+              </div>
+            </div>
+        </mt-popup>
+
+        <div id="footer-scan" style='position:fixed;bottom:0px' >
+
+            <div class='footer-control-operation-div' v-show='infusionOperationShow'>
+            <div class='footer-control-operation-item' @click='closeInfusionOperation'><div class='footer-control-operation-item-icon-div'><i class='icon iconfont icon-guanbi operation-icon'></i></div><div class='footer-control-operation-item-word'>关闭</div></div>
+
+            <div class='footer-control-operation-item' @click='check'><div class='footer-control-operation-item-icon-div'><i class='icon iconfont icon-yanjing operation-icon'></i></div><div class='footer-control-operation-item-word'>添加巡视</div></div>
+            <div class='footer-control-operation-item' @click='GoOn'><div class='footer-control-operation-item-icon-div'><i class='icon iconfont icon-guanlianfujian operation-icon'></i></div><div class='footer-control-operation-item-word'>接瓶</div></div>
+            <div class='footer-control-operation-item' @click='stop'><div class='footer-control-operation-item-icon-div'><i class='icon iconfont icon-zanting1 operation-icon'></i></div><div class='footer-control-operation-item-word' >暂停</div></div>
+            <div class='footer-control-operation-item footer-control-operation-item-stop' @click='finish'>结束</div>
+        </div>
+       
+      </div>
     </div>
 </template>
 
 <script>
 import nheader from '@/views/components/nheader';
-import { getInfusion } from '@/api/api';
+//import { getInfusion } from '@/api/api';
 import { Countdown,Search,Picker} from 'vux';
 import { Indicator } from 'mint-ui';
  
@@ -158,7 +269,7 @@ export default {
   name: 'Infusion',
   components:{
   	Countdown,
-    Indicator,
+    Indicator,  
     Search,
     nheader,
     Picker
@@ -188,10 +299,32 @@ export default {
             ["普外科护理一单元","普外科护理二单元"],
             ["按消耗量","按床位"]
         ],
-        popupVisible:false
+        popupVisible:false,
+        actionVisible:false,
+        OrderDetailVisible:false,
+        infusionOperationShow:false
     }
   },
   methods :{
+      showInfusionOperation(){
+          this.infusionOperationShow =true;
+          this.actionVisible = false;
+      },
+      closeOrderDetail(){
+        this.OrderDetailVisible = false;
+      },
+      closeInfusionOperation(){
+        this.infusionOperationShow =false;
+      },
+      showOrderDetail(){
+          this.OrderDetailVisible=true;
+      },
+      showOrderDetail(){
+          this.OrderDetailVisible = true
+      },
+      actionShow(){
+        this.actionVisible = true;
+      },
   		pickDetail(){
         this.popupVisible = true
       },
@@ -264,10 +397,56 @@ export default {
       },
       onCancel(){
 
-      }
+      },
+        stop(){
+      MessageBox({
+        $type:'prompt',
+        title:'暂停输液',
+        message:'请填写暂停原因',
+        showCancelButton:true,
+        inputPattern: /\S/,    //正则条件
+        inputErrorMessage:'原因不能为空',
+        showInput:true
+    }).then(({ value, action }) => {
+        console.log(value);
+    }).catch(()=>{
+    
+    });
+        
+    },
+    finish(){
+        MessageBox({
+        $type:'confirm',
+        title:'结束输液',
+        message:'是否结束输液',
+        showCancelButton:true
+    }).then(({ value, action }) => {
+        
+    }).catch(()=>{
+    
+    });
+    },
+    GoOn(){
+        
+    },
+
+    check(){
+        MessageBox({
+        $type:'prompt',
+        title:'添加巡视',
+        message:'不填默认为无异常',
+        showCancelButton:true,
+        inputPlaceholder:'患者未诉任何不适',
+        showInput:true
+    }).then(({ value, action }) => {
+        console.log(value);
+    }).catch(()=>{
+    
+    });
+    }
   },
   mounted () {
-  		this.getInfusionInfo('');
+  		//this.getInfusionInfo('');
 
   }
 
@@ -277,18 +456,32 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
 #InfusionInfo{
 	
 }
 
+.actionChoice-div{
+  
+  width:100vw;
+}
+.actionChoice-choice-div:first-child{
+  border-bottom:1px solid rgb(230,230,230);
 
+}
+.actionChoice-choice-div{
+  height:7vh;
+  width:100vw;
+  line-height:7vh;
+  font-size:1.6rem
+}
 .icon-all{
   float:right;
   font-size:2.2rem;
   font-weight:bold;
 }
 .icon-all-copy{
-   float:right;
+  float:right;
   font-size:2.2rem;
   font-weight:bold;
   
@@ -501,6 +694,139 @@ export default {
 .infusion-main-content-table-second-tr{
   height:4vh
 }
+.orderDetail-div{
+  height:100vh;
+  width:100vw;
+  background:white
+}
+.close{
+  position:relative;
+  height:6vh;
+  width:100vw;
+  line-height:6vh;
+  z-index:99;
+  background:rgb(250,250,250);
+  font-size:1.8rem;
+  border-bottom:1px solid rgb(230,230,230)
+}
+.icon-guanbi{
+  font-size:3rem;
+  float:left
+}
+.content-table{
+  width:95vw;
+  margin-left:5vw;
 
+}
+.content-detail-main{
+  margin-top:2vh;
+  border-top:1px solid rgb(230,230,230);
+  border-bottom:1px solid rgb(230,230,230);
+  background:white
+}
+.text-align-left-td-class{
+  text-align:left;
+  color:rgb(150,150,150)
+
+}
+.content-main-div{
+  display:inline-block;
+  background:rgb(250,250,250);
+  height:93.4vh
+}
+.text-align-right-td-class{
+  text-align:right;
+  padding-right:5vw;
+  font-family:"微软雅黑"
+}
+.table-td{
+  font-size:1.4rem;
+  height:5vh;
+  border-bottom:1px solid rgb(230,230,230)
+}
+.border-bottom-none{
+  border-bottom:none
+}
+.content-detail-title{
+  height:10vh;
+  width:100vw;
+  background:white;
+  border-top:1px solid rgb(230,230,230);
+  margin-top:2vh;
+  border-bottom:1px solid rgb(230,230,230);
+}
+.orderType{
+  width:18vw;
+  height:3.5vh;
+  line-height:3.5vh;
+  background:rgb(254, 110, 161);
+  color:white;
+  font-size:1.3rem
+}
+.content-detail-order-name{
+  font-size:1.8rem
+}
+.pat-choice-td{
+  height:6vh;
+  font-size:1.4rem;
+  width:27.5vw;
+  border-bottom:1px solid rgb(230,230,230)
+}
+.pat-choice-table{
+    width:45vw
+}
+.pat-choice-title{
+  heigth:6vh;
+  line-height:6vh;
+  font-size:1.6rem;
+  text-align:center;
+  border-bottom:1px solid rgb(230,230,230)
+}
+.actionChoice-div{
+  
+  width:100vw;
+}
+.actionChoice-choice-div:first-child{
+  border-bottom:1px solid rgb(230,230,230);
+
+}
+.actionChoice-choice-div{
+  height:7vh;
+  width:100vw;
+  line-height:7vh;
+  font-size:1.6rem
+}
+.patChoice-div{
+  height:100vh;
+  width:45vw;
+  overflow:auto;
+}
+.footer-control-operation-div{
+    width:100vw;
+    height:4.669rem;
+    background:white;
+}
+.footer-control-operation-item:first-child{
+    border-left:none
+}
+.footer-control-operation-item{
+    width:15.8vw;
+    height:4.5rem;
+    border-left:1px solid rgb(230,230,230);
+    float:left;
+    
+}
+.footer-control-operation-item-icon-div{
+    margin-top:0.8004rem
+}
+.footer-control-operation-item-word{
+    font-size:1.4rem
+}
+.footer-control-operation-item-stop{
+    width:35vw;
+    background:rgb(255,204,204);
+    font-size:1.6rem;
+    line-height:4.7rem;
+}
 </style>
 

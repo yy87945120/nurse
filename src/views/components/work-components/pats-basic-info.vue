@@ -1,22 +1,23 @@
 <template>
-    <div id="PatsBasicInfo">
+    <div id="PatsBasicInfo" >
+        <div v-for='item in patsInfo'>
     	<div id="pat-basic-info">
     	<div class="font-layout">
-    		<img/>
-    		<div style="display:inline-block;margin-top:1vh">
-    			<table>
+    		<div style="float:left;background:red;width:22vw;height:10vh"><img/></div>
+    		<div style="float:left;margin-left:5vw;width:60vw;">
+    			<table class='basic-info-table' style='width:65vw;'>
     				<tr>
-    					<td class="text-align-left"  style="width:16vw;font-size:1.7rem;
-    					color:black">姚展锋</td>
-    					<td class="text-align-left" style="color:rgb(120,120,120);width:6vw;font-size:1.4rem">男</td>
-    					<td class="text-align-left" style="color:rgb(120,120,120);width:10vw;font-size:1.4rem">22岁</td>
-    				</tr>
-    				<tr>
-    					<td class="text-align-left" style="color:rgb(120,120,120);font-size:1.4rem" colspan='3'>18819747163</td>
+    					<td class="text-align-left"  style="width:10vw;font-size:1.7rem;
+    					color:black">{{item.姓名}}<span class="text-align-left" style="color:rgb(120,120,120);width:6vw;font-size:1.4rem">&nbsp;&nbsp;&nbsp;{{item.性别}}</span>
+                        <span class="text-align-left" style="color:rgb(120,120,120);width:10vw;font-size:1.4rem">&nbsp;{{item.年龄}}</span></td>
     					
     				</tr>
     				<tr>
-    					<td class="text-align-left" style="color:rgb(120,120,120);font-size:1.4rem" colspan='3'>广东医科大学</td>
+    					<td class="text-align-left" style="color:rgb(120,120,120);font-size:1.4rem" colspan='3'>{{item.电话}}</td>
+    					
+    				</tr>
+    				<tr>
+    					<td class="text-align-left" style="color:rgb(120,120,120);font-size:1.4rem" colspan='3'>{{item.地址}}</td>
     				
     				</tr>
     			</table>
@@ -34,51 +35,51 @@
     			<table>
     				<tr class='table-tr'>
     					<td class='title-td'>病人ID</td>
-    					<td class='content-td'>1</td>
+    					<td class='content-td'>{{patId}}</td>
     				</tr>
     				<tr>
     					<td class='title-td'>住院号</td>
-    					<td class='content-td'>1</td>
+    					<td class='content-td'>{{item.住院号}}</td>
     				</tr>
     				<tr class='table-tr'>
     					<td class='title-td'>住院次数</td>
-    					<td class='content-td'>第一次住院</td>
+    					<td class='content-td'>{{item.住院次数}}</td>
     				</tr>
     				<tr class='table-tr'>
     					<td class='title-td'>入院日期</td>
-    					<td class='content-td'>2018-3-11 10:00</td>
+    					<td class='content-td'>{{item.入院日期}}</td>
     				</tr>
     				<tr>
     					<td class='title-td'>住院天数</td>
-    					<td class='content-td'>第33天</td>
+    					<td class='content-td'>{{item.住院天数}}</td>
     				</tr>
     				<tr class='table-tr'>
     					<td class='title-td'>住院医生</td>
-    					<td class='content-td'>蒋荣猛</td>
+    					<td class='content-td'>{{item.住院医生}}</td>
     				</tr>
     				<tr class='table-tr'>
     					<td class='title-td'>住院科室</td>
-    					<td class='content-td'>中西医结合一科</td>
+    					<td class='content-td'>{{item.科室}}</td>
     				</tr>
     				<tr class='table-tr'>
     					<td class='title-td'>入院诊断</td>
-    					<td class='content-td'>发热</td>
+    					<td class='content-td'>{{item.入院诊断}}</td>
     				</tr>
     				<tr class='table-tr'>
     					<td class='title-td'>护理单元</td>
-    					<td class='content-td'>中西医结合一病区</td>
+    					<td class='content-td'>{{item.病区}}</td>
     				</tr>
     				<tr class='table-tr'>
     					<td class='title-td'>床号</td>
-    					<td class='content-td'>1001</td>
+    					<td class='content-td'>{{item.床位号}}</td>
     				</tr>
     				<tr class='table-tr'>
     					<td class='title-td'>护理等级</td>
-    					<td class='content-td'>二级护理</td>
+    					<td class='content-td'>{{item.护理等级}}</td>
     				</tr>
     				<tr class='table-tr'>
     					<td class='title-td'>病情</td>
-    					<td class='content-td'>一般</td>
+    					<td class='content-td'>{{item.病情}}</td>
     				</tr>
     			</table>
     		</div>
@@ -98,7 +99,7 @@
     					姓名
     				</td>
     				<td class='content-td'>
-    					姚展锋老婆
+    					{{item.联系人姓名}}
     				</td>
     			</tr>
     				<tr class='table-tr'>
@@ -106,7 +107,7 @@
     					电话
     				</td>
     				<td class='content-td'>
-    					18819747163
+    					{{item.联系人电话}}
     				</td>
     			</tr>
     				<tr class='table-tr'>
@@ -114,36 +115,51 @@
     					地址
     				</td>
     				<td class='content-td'>
-    					广东医科大学
+    					{{item.联系人地址}}
     				</td>
     			</tr>
     		</table>
     		</div>
     		</div>
     	</div>
+        </div>
     </div>
 </template>
 
 <script>
-
+import {getPat} from '@/config';
 export default {
   name: 'PatsBasicInfo',
   data () {
     return {
       active:'tab-info',
       patsInfo:[],
-      patsFamily:[],
-      patsFee:[]
+      patId:0
     }
   },
   components:{},
   methods :{
    	getPatsBasicInfo(){
-
+        let pat = getPat()
+        this.patId = pat.pat_id;
+        let data = {"patientid":pat.pat_id};
+        let _this = this;
+        $.ajax({
+        data:data,
+        type:"post",
+        url:"http://120.24.73.75:8200/CI/index.php/Ywq/GetPatInfo",
+        datatype:"json",
+        success:function(data){
+        let json = (JSON.parse(data));
+            _this.patsInfo = json;
+        },
+        error:function(){
+        }
+      });
    	}
   },
   mounted () {
-
+    this.getPatsBasicInfo();
   }
 }
 </script>
@@ -162,7 +178,8 @@ export default {
 	margin:0px auto 0px;
 }
 #pat-basic-info{
-	height:13vh;
+	padding-top:.8vh;
+    padding-bottom:.8vh;
 	width:95vw;
 	display:inline-block;
 	background:white;
@@ -200,7 +217,8 @@ export default {
 	background:white;
 }
 .text-align-left{
-	text-align:left
+	text-align:left;
+
 }
 .table-tr{
 	height:4vh

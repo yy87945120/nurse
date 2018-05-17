@@ -21,7 +21,13 @@ import PatFee from '@/views/components/work-components/pats-fee'
 import ThreeTest from '@/views/work/three-test-sys/three-test'
 import PersonalThreeTest from '@/views/work/three-test-sys/personal-three-test'
 import WorkList from '@/views/work/work-list-sys/work-list'
-import NurseRecord from '@/views/work/nurse-record-sys/nurse-record'
+
+
+import NurseRecord from '@/views/work/nurse-record-sys/filter'
+import NurseRecordDetail from '@/views/work/nurse-record-sys/nurse-record'
+import NurseRecordNormal from '@/views/work/nurse-record-sys/nurse-record-normal'
+import NurseRecordWomen from '@/views/work/nurse-record-sys/nurse-record-women'
+
 import Infusion from '@/views/work/infusion-sys/infusion'
 
 import ImportantInform from '@/views/work/important-inform-sys/important-inform'
@@ -114,6 +120,21 @@ export default new Router({
       path: '/ImportantInform',
       name: 'ImportantInform',
       component: ImportantInform
+    },
+    {
+      path: '/NurseRecordDetail',
+      name: 'NurseRecordDetail',
+      component: NurseRecordDetail
+    },
+    {
+      path: '/NurseRecordNormal',
+      name: 'NurseRecordNormal',
+      component: NurseRecordNormal
+    },
+    {
+      path: '/NurseRecordWomen',
+      name: 'NurseRecordWomen',
+      component: NurseRecordWomen
     },
     {
       path: '/Pats',

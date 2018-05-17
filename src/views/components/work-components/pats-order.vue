@@ -191,6 +191,7 @@ export default {
       },
       closeOrderDetail(){
           this.OrderDetailVisible = false;
+          
       }
   },
   mounted () {

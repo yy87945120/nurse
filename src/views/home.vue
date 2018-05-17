@@ -44,8 +44,8 @@ export default {
 <style scoped>
 #Home{
   position:absolute;
-  height:100%;
-  width:100%;
+  height:100vh;
+  width:100vw;
 }
 .active-class{
   color:rgb(254,110,161);

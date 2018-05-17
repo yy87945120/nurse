@@ -36,14 +36,16 @@ let timeFormat = value => {
 
 let stateFormat = value => {
   	if(value == 'Y'){
-  		return '已执行';
-  	}else if('R'){
+  		return "已执行";
+  	}else if(value =='R'){
   		return '撤销执行';
-  	}else if('S'){
+  	}else if(value =='S'){
   		return '停止执行';
-  	}else{
+  	}else if(value =='N'){
   		return '未执行';
-  	}
+  	}else if(value =='O'){
+      return '执行中';
+    }
 }
 
 let infusionStateFormat = value => {
@@ -65,4 +67,11 @@ let ageFormat = value =>{
   
 }
 
-export { sex, timeFormat, stateFormat, infusionStateFormat, ageFormat };
+let dateYYYYMMddFormat = value => {
+    let year = value.getFullYear();
+    let month = value.getMonth();
+    let date = value.getDate();
+    return year+'-'+month+'-'+date
+}
+
+export { sex, timeFormat, stateFormat, infusionStateFormat, ageFormat, dateYYYYMMddFormat };

@@ -6,7 +6,7 @@
          
         </div>
        </div>
-        <div class="layout">
+      
       <div id="main-banner">
         <mt-swipe :auto="5000" style="border-radius:5px">
   <mt-swipe-item><img src='../../assets/img/banner1.jpg' /></mt-swipe-item>
@@ -14,7 +14,7 @@
 
 </mt-swipe>
       </div>
-      </div>
+     
     	<div class="layout">
     	<div id="nav">
           <ul>
@@ -93,6 +93,7 @@ export default {
 #main-banner{
   height:20vh;
   width:90vw;
+  display:inline-block;
   margin-top:2vh auto 0vh;
   background:#ccc;
   border-radius:5px

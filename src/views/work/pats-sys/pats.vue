@@ -1,13 +1,15 @@
 <template>
     <div id="Pats">
     	<div id="Infusion">
-    	<nheader :routechoice='router'><span slot="title">中西医结合一病区<i class='icon iconfont icon-moreunfold'></i></span></nheader>
+    	<nheader :routechoice='router'><span slot="title" @click='actionChoice=!actionChoice'>{{depShow}}<i class='icon iconfont icon-moreunfold'></i></span></nheader>
         	
 		<div id="filter">
-    		<search class="search" placeholder="姓名 || 住院号 || 床位号"  @on-change="onChange"  v-model='searchValue' :results="res" :on-cancel="onCancel">
-    		<table slot="res">
-    			<tr v-for="item in resData" @click="handleResultClick(item)">
-    				 <td>{{item.name}}</td>
+    		<search class="search" ref='selectOne' placeholder="姓名 || 住院号 || 床位号"  @on-change="onChange"  v-model='searchValue' :results="filterRes" :on-cancel="onCancel">
+    		<table slot="res" style='width:100%'>
+    			<tr v-for="item in filterRes" @click="handleResultClick(item)" style='height:3.335rem;'>			 
+             <td style='font-size:1.6rem'>{{item.dep_desc}}</td>
+             <td style='font-size:1.6rem'>{{item.bed_desc}}床</td>
+             <td style='font-size:1.6rem'>{{item.pat_name}}</td>
     			</tr>
 
     		</table></search>
@@ -15,43 +17,55 @@
     	</div>
      
     	<div id="pats-list">
-    		  <div class='pats-list-div' v-for='item in pats' @click="choosePats(item)">
+    		  <div class='pats-list-div' v-for='item in patList' @click="choosePats(item)">
             <table class="pats-list-table">
               <tr >
-                <td class='pats-list-title pats-bed'>1011</td>
-                <td class="pats-name">{{item.name}}</td>
-                <td class="pats-sex">{{item.sex | sex}}</td>
-                <td class="pats-age">{{item.age | ageFormat}}</td>
+                <td class='pats-list-title pats-bed'>{{item.bed_desc}}床</td>
+                <td class="pats-name">{{item.pat_name}}</td>
+                <td class="pats-sex">{{item.pat_sex | sex}}</td>
+                <td class="pats-age">{{item.pat_age | ageFormat}}</td>
                 <td class='pats-list-text-align-right'>状态图标栏</td>
               </tr>
               <tr class="font-format-class">
                 <td class='pats-list-title'>医生:</td>
-                <td colspan='4' class="pats-list-text-align-left">名字</td>
+                <td colspan='4' class="pats-list-text-align-left">{{item.doctor_name}}</td>
               </tr>
               <tr class="font-format-class">
                 <td class='pats-list-title'>诊断:</td>
-                <td colspan='4' class="pats-list-text-align-left">诊断内容</td>
+                <td colspan='4' class="pats-list-text-align-left">{{item.diagnose_desc}}:{{item.diagnose_content}}</td>
               </tr>
             </table>
         </div>
     
     		
     	</div>
+      <mt-popup v-model="actionChoice" position="bottom">
+            <div class='actionChoice-div'>
+              <div class='actionChoice-choice-div' v-for='item in depList' @click='changeDep(item)'>{{item.dep_desc}}</div>
+              
+            </div>
+        </mt-popup>
     </div>
 </template>
 
 <script>
 import nheader from '@/views/components/nheader';
 import {Search} from 'vux'
+import {getPatInfo,getFilterPatInfo,getExactPatInfo } from '@/api/api'
 import {indicator} from 'mint-ui'
+import {getUser,getDepartment} from '@/config'
 export default {
   name: 'Pats',
   components:{nheader,Search},
   data () {
     return {
+      actionChoice:false,
       router:'gohome',
       searchValue:'',
-      res:[],
+      filterRes:[],
+      depShow:'',
+      depId:'',
+      patList:[],
       pats:[
       	{
       		name:'姚展锋',
@@ -73,27 +87,106 @@ export default {
       		nurseDr:2,
       		icon:[]
       	}
+        
       ],
-      resData:[{name:'1'},{name:'2'},{name:'3'}]
+      depList:[],
+      resData:[{name:'1'},{name:'2'},{name:'3'}],
+      
     }
   },
  
   methods :{
+    handleResultClick(item){
+      let _this = this;
+      $.ajax({
+        data:{'pat_id':item.pat_id},
+        type:"post",
+        url:"http://120.24.73.75:8200/CI/index.php/BasicInfo/getExactPatInfo",
+        datatype:"json",
+        success:function(data){
+          let json = (JSON.parse(data));
+          _this.patList=json;
+          _this.$refs.selectOne.isCancel = false
+          _this.$refs.selectOne.isFixed = false
+
+        },
+        error:function(){
+        }
+      })
+    },
+      changeDep(item){
+        this.depShow=item.dep_desc;
+        this.depId =item.row_id; 
+        this.actionChoice = false;
+        this.getPatInfoMethod();
+      },
    	onChange(){
-
+      try
+      {
+        let _this = this;
+          $.ajax({
+            data:{'pat_name':_this.searchValue},
+            type:"post",
+            url:"http://120.24.73.75:8200/CI/index.php/BasicInfo/getFilterPatInfo",
+            datatype:"json",
+            success:function(data){
+              let json = (JSON.parse(data));
+              _this.dataList=json;
+              _this.filterRes = json;
+            },
+            error:function(){
+            }
+          })
+      }
+      catch(err)
+      {
+        console.log('empty');
+      }
+      
    	},
+
    	onCancel(){
-
+      this.cancel = true;
    	},
+    getLocalStorage(){
+        let dep = getDepartment();  
+        this.depList=dep;
+        this.depShow = this.depList[0].dep_desc;
+        this.depId = this.depList[0].row_id;    
+    },
+    getPatInfoMethod(){
+      let user = getUser();
+      let nurse_id = user[0].row_id;
+      let _this = this;
+      let data = {
+        'nurse_id':nurse_id,
+        'dep_dr':this.depId
+      };
+      $.ajax({
+        data:data,
+        type:"post",
+        url:"http://120.24.73.75:8200/CI/index.php/BasicInfo/getPatInfo",
+        datatype:"json",
+        success:function(data){
+        let json = (JSON.parse(data));
+        _this.patList = json;
+        },
+        error:function(){
+        }
+      })
+   },
    	choosePats(item){
        indicator.open('加载中..');
+
    		 setTimeout(()=>{
    		 try{
    		 	localStorage.removeItem('pats');
+
    		 	let patsInfo = {
-        			name: item.name,
-    				 bed: item.bed,
-        			  id: item.id
+        			pat_id:item.pat_id,
+              bed_id:item.bed_id,
+              nurse_id:item.nurse_id,
+              doctor_id:item.doctor_id
     	 	};
 		 	localStorage.setItem('pats', JSON.stringify(patsInfo));
    		 	this.$router.push({path:'./PatsInfo'});
@@ -107,14 +200,29 @@ export default {
    	}
   },
   mounted () {
-
+      this.getLocalStorage();
+      this.getPatInfoMethod();
+      
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.actionChoice-div{
+  
+  width:100vw;
+}
+.actionChoice-choice-div:first-child{
+  border-bottom:1px solid rgb(230,230,230);
 
+}
+.actionChoice-choice-div{
+  height:7vh;
+  width:100vw;
+  line-height:7vh;
+  font-size:1.6rem
+}
 #filter{
 	margin-top:4.002rem;
 	width:100vw;

@@ -51,15 +51,12 @@ html{
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  width:100vw;
+  height:100vh;
+  position:relative
 }
 
-#app {
-	position: absolute;
-	top: 0px;
-	bottom: 0px;
-	width: 100%;
-	height:100%;
-}
+
 li{
 	list-style-type:none
 }
@@ -68,8 +65,8 @@ li{
   position: absolute;  
   left: 0;  
   top: 0;  
-  width: 100%;  
-  height: 100%;  
+  width: 100vw;  
+  height: 100vh;  
   transition: all .1s cubic-bezier(.55,0,.1,1);  
 }
 
@@ -121,7 +118,7 @@ li{
 
 }
 .vux-no-group-title{
-  padding-top:10px !important
+  padding-top:0px !important
 }
 .mint-cell-wrapper{
   background-origin:border-box

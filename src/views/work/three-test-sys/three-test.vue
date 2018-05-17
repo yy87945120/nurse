@@ -14,7 +14,7 @@
       </search>
       
       </div>
-      <div style='display:inline-block;width:100vw;background:rgb(239,239,244);height:4.6rem'>
+      <div style='display:inline-block;width:100vw;background:rgb(239,239,244);height:4.6rem' >
         <div class='layout'>           
             <ul class='filter-detail-ul'>
               <li class='filter-detail-li' @click='pickDetail'>{{filter.ward}}</li>
@@ -58,14 +58,14 @@
         </mt-popup>
 
         <div class="footer-new">
-        <div class='footer-new-div' @click="creatRecord">
+        <div class='new-footer-new-div' @click="creatRecord">
           新建批量三测单
         </div>
         </div>
       <mt-popup v-model="createNewRecord" position="right">
         <div class='newRecord-div'>
-            <dheader @close='closeForm' ><span slot='title'>新建批量三测单</span><i class='icon iconfont icon-shouye2' slot='icon' style='font-size:2.4rem' @click='submitForm'></i></dheader>
-            <div style='display:inline-block;width:100vw;background:rgb(239,239,244);height:4.6rem'>
+            <dheader @close='closeForm' ><span slot='title'>体征录入</span><i class='icon iconfont icon-shouye2' slot='icon' style='font-size:2.4rem' @click='submitForm'></i></dheader>
+            <div style='display:inline-block;width:100vw;background:rgb(239,239,244);height:4.6rem;' v-show='false'>
               <div class='layout'>           
                 <ul class='filter-detail-ul' style='margin-top:.5rem'>
                   <li class='filter-detail-li' @click='pickDetailNewRecord'>{{filterNewRecord.ward}}</li>
@@ -73,28 +73,105 @@
                 </ul>   
               </div> 
             </div> 
-           <div class='scroll-div-new-record'>
-                <table class='table-new-record' >
-                    <tr @click='choiceItem' class='table-title'>
-                      <td class='table-title-name table-title-normal'>姓名</td>
-                      <td class='table-title-normal'>腋下体温</td>
-                      <td class='table-title-normal'>脉搏</td>
-                      <td class='table-title-normal'>呼吸</td>
+            <div class='main-new-record-scroll-div'>
+           <div class='bed-scroll-div-new-record'>
+                <div class='bed-item' :class="index==1?'pat-onfocus':''" v-for='(item,index) in 10'>
+                    {{index+1}}床
+                    <div v-show='index==1' >王大锤</div>
+                </div>
+           </div>
+            <div class='form-scroll-div-new-record'>
+                <div style='position:absolute;width:76vw;background:rgb(239,239,244);height:4.6rem;' v-show='true'>
+                        
+                <ul class='filter-detail-ul-new' style='margin-top:.5rem;margin-left:5vw'>
+                  <li class='filter-detail-li-new' @click='pickDetailNewRecord'>{{filterNewRecord.ward}}</li>
+                  <li class='filter-detail-li-new' @click='pickDetailNewRecord'>{{filterNewRecord.time}}</li>
+                </ul>   
+             
+            </div> 
+            <div class='new-record-form'>
+              <div class='group-item group-item-basic'>
+                  <table class='new-record-table'>
+                    <tr class='new-record-tr'>
+                      <td class='new-record-title-td'>腋下体温:</td>
+                      <td class='new-record-input-td'><input type='text' class='new-record-input' placeholder='请填写体温'/></td>
+                      <td class='new-record-unit'>℃</td>
                     </tr>
-                    <tr v-for='item in 10'>
-                      <td class='table-content-td'>1001床&nbsp;姚展锋</td>
-                      <td class='table-content-td'><input type='text' class='table-td-input'/></td>
-                      <td class='table-content-td'><input type='text' class='table-td-input'/></td>
-                      <td class='table-content-td'><input type='text' class='table-td-input'/></td>
+                    <tr class='new-record-tr'>
+                      <td class='new-record-title-td'>脉搏:</td>
+                      <td class='new-record-input-td'><input type='text' class='new-record-input' placeholder='请填写脉搏'/></td>
+                      <td class='new-record-unit'>次/分</td>
+                    </tr>
+                    <tr class='new-record-tr'>
+                      <td class='new-record-title-td'>心率:</td>
+                      <td class='new-record-input-td'><input class='new-record-input' type='text' placeholder='请填写心率'/></td>
+                      <td class='new-record-unit'>次/分</td>
+                    </tr>
+                    <tr class='new-record-tr'>
+                      <td class='new-record-title-td'>呼吸:</td>
+                      <td class='new-record-input-td'><input type='text' class='new-record-input' placeholder='填写呼吸次数'/></td>
+                      <td class='new-record-unit'>次/分</td>
+                    </tr>
+                    <tr class='new-record-tr'>
+                      <td class='new-record-title-td'>物理降温后:</td>
+                      <td class='new-record-input-td'><input type='text' class='new-record-input' placeholder='物理降温后'/></td>
+                      <td class='new-record-unit'>℃</td>
+                    </tr>
+                  </table>
+              </div>
+              <div class='group-item group-item-all'>
+                  <table class='new-record-table'>
+                    <tr class='new-record-tr'>
+                      <td class='new-record-title-td'>血压:</td>
+                      <td class='new-record-input-td'><input type='text' class='new-record-input' placeholder='请填写血压'/></td>
+                      <td class='new-record-unit'>mmHg</td>
+                    </tr>
+                    <tr class='new-record-tr'>
+                      <td class='new-record-title-td'>总入量:</td>
+                      <td class='new-record-input-td'><input type='text' class='new-record-input' placeholder='请填写总入量'/></td>
+                      <td class='new-record-unit'>ml</td>
+                    </tr>
+                    <tr class='new-record-tr'>
+                      <td class='new-record-title-td'>大便:</td>
+                      <td class='new-record-input-td'><input class='new-record-input' type='text' placeholder='填写大便次数'/></td>
+                      <td class='new-record-unit'>次</td>
+                    </tr>
+                    <tr class='new-record-tr'>
+                      <td class='new-record-title-td'>尿量:</td>
+                      <td class='new-record-input-td'><input type='text' class='new-record-input' placeholder='请填写总出量'/></td>
+                      <td class='new-record-unit'>ml</td>
+                    </tr>
+                    <tr class='new-record-tr'>
+                      <td class='new-record-title-td'>总出量:</td>
+                      <td class='new-record-input-td'><input type='text' class='new-record-input' placeholder='请填写总出量'/></td>
+                      <td class='new-record-unit'>ml</td>
+                    </tr>
+                    <tr class='new-record-tr'>
+                      <td class='new-record-title-td'>体重:</td>
+                      <td class='new-record-input-td'><input type='text' class='new-record-input' placeholder='请填写体重'/></td>
+                      <td class='new-record-unit'>kg</td>
+                    </tr>
+                  </table>
+              </div>
+              <div class='group-item group-item-event'>
+                   <table class='new-record-table'>
+                    <tr class='new-record-tr'>
+                      <td class='new-record-title-td'>护理事件:</td>
+                      <td class='new-record-input-td'><input type='text' class='new-record-input' placeholder='请填写护理事件'/></td>
                       
                     </tr>
-                </table>
+                 
+                  </table>
+              </div>
            </div>
+           </div>
+            </div>
            <div class='footer-new'>
+            <div class='footer-new-left-right-div'>上床</div>
           <div class='footer-new-div' @click='showMask = !showMask'>开始语音
-          
-          
+
         </div>
+        <div class='footer-new-left-right-div'>下床</div>
         </div>
         </div>
         <div class='mask' v-show='showMask'><div @click='showMask = !showMask'><i class='icon iconfont icon-yuyin' style='font-size:5rem;line-height:100vh;color:white'></i></div></div>
@@ -132,7 +209,7 @@ export default {
         },
       filterNewRecord:{
           date:0,
-          ward:'普外科护理一单元',
+          ward:'2018-03-11',
           time:"8:00"
       },
       detailValue:[],
@@ -142,7 +219,7 @@ export default {
           ["2018-03-11","2018-03-12"]
       ],
       detailArrNewRecord:[
-          ["普外科护理一单元","普外科护理二单元"],
+          ["2018-03-11","2018-03-12"],
           ["7:00","8:00","9:00","10:00"]
       ],
       popupVisible:false,
@@ -253,7 +330,7 @@ export default {
           
       },
       choiceItem(){
-          console.log(1)
+          
       },
       ifEmpty(){
 
@@ -270,7 +347,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  
+
 .child-view {  
   position: absolute;  
   left: 0;  
@@ -279,6 +356,9 @@ export default {
   height: 100%;  
   transition: all .5s cubic-bezier(.55,0,.1,1);  
 }  
+.pat-onfocus{
+  background:rgb(239, 239, 244)
+}
 .slide-left-enter, .slide-right-leave-active {  
   opacity: 0;  
   -webkit-transform: translate(30px, 0);  
@@ -289,8 +369,43 @@ export default {
   -webkit-transform: translate(-30px, 0);  
   transform: translate(-30px, 0);  
 }  
-#filter{
+.new-record-table{
+  display:inline-block
+}
+.new-record-tr{
+  height:4.5vh;
+}
+.new-record-form{
+  margin-top:7vh;
+  height:79vh;
+  width:76vw;
+  overflow-y:auto
+}
+.new-record-unit{
+  font-size:1.4rem;
+  text-align:left
+}
+.group-item:first-child{
+  margin-top:0vh
+}
+.group-item{
+  display:inline-block;
+  width:76vw;
+  background:white;
   
+  margin-top:2vh
+}
+.group-item-basic{
+  height:25vh
+}
+.group-item-all{
+  height:31vh
+}
+.group-item-event{
+  height:19vh
+}
+
+#filter{
   width:100vw;
   height:4.84rem;
   line-height:4.002rem;
@@ -319,8 +434,24 @@ export default {
   font-size:1.4rem;
   width:44.5vw
 }
+.filter-detail-ul-new{
+  margin-top:0.3335rem;
+}
 
-.filter-detail-li:last-child{
+.filter-detail-li-new{
+  float:left;
+  height:3.2016rem;
+  background:white;
+  font-size:1.4rem;
+  line-height:3.2016rem;
+  border-left:1px solid rgb(200,200,200);
+  border-top:1px solid rgb(200,200,200);
+  border-bottom:1px solid rgb(200,200,200);
+  position:relative;
+  font-size:1.4rem;
+  width:33vw
+}
+.filter-detail-li-new:last-child{
     border-right:1px solid rgb(200,200,200)
 }
 .detailPicker{
@@ -342,10 +473,32 @@ export default {
   width:100vw;
   height:4.669rem;
   text-align:center;
-  
+  background:white;
   border-top:1px solid rgb(230,230,230)
 }
+.footer-new-left-right-div{
+  height:2.668rem;
+  line-height:2.668rem;
+  margin-top:1.0005rem;
+  color:white;
+  border-radius:2px;
+  width:18vw;
+  display:inline-block;
+  background:rgb(254, 110, 161);
+}
+
 .footer-new-div{
+  height:2.668rem;
+  line-height:2.668rem;
+  display:inline-block;
+  margin-top:1.0005rem;
+  color:white;
+  border-radius:2px;
+  width:60vw;
+  background:rgb(254, 110, 161);
+  font-size:1.4rem
+}
+.new-footer-new-div{
   height:2.668rem;
   line-height:2.668rem;
   display:inline-block;
@@ -356,7 +509,6 @@ export default {
   background:rgb(254, 110, 161);
   font-size:1.4rem
 }
-
 
 #pats-list{
   width:100vw;
@@ -377,7 +529,20 @@ export default {
   background:white;
   margin-top:0.667rem
 }
-
+.new-record-title-td{
+  font-size:1.4rem;
+  text-align:right;
+  width:20vw
+}
+.new-record-input-td{
+  
+}
+.new-record-input{
+  border:none;
+  border-bottom:1px solid rgb(230,230,230);
+  width:25vw;
+  text-align:center
+}
 .pats-list-text-align-left{
   text-align:left
 }
@@ -415,19 +580,44 @@ export default {
 }
 .scroll-div{
   width:100vw;
-  height:47.7572rem;
+  height:45.7572rem;
   overflow-y:auto
 }
 .newRecord-div{
-  height:66.7rem;
+  height:100vh;
   width:100vw;
   background:white
 }
-.scroll-div-new-record{
-  background:white;
-  height:52.69rem;
+.main-new-record-scroll-div{
+  height:86vh;
   width:100vw;
+
+}
+.bed-scroll-div-new-record{
+  
+  display:inline-block;
+  height:86vh;
+  width:23vw;
   overflow-y:auto;
+  float:left;
+  border-right:1px solid rgb(230,230,230);
+}
+.form-scroll-div-new-record{
+  position:relative;
+  height:86vh;
+  display:inline-block;
+  width:76vw;
+  overflow-y:auto;
+  float:left;
+  background:rgb(239, 239, 244)
+}
+.bed-item{
+  padding-top:.8vh;
+  padding-bottom:.8vh;
+  width:23vw;
+  border-bottom:2px solid rgb(230,230,230);
+  line-height:3.5vh;
+  font-size:1.4rem
 }
 .mask{
   position:absolute;
@@ -439,34 +629,12 @@ export default {
   background:#000;
   opacity:0.7;
 }
-.table-new-record{
-  width:100vw;
+.form-ul-li-item{
+  display:inline-block;
+  padding-top:.5vh;
+  padding-bottom:.5vh;
+  background:red
 }
-.table-title{
-  background:rgb(250,250,250)
-}
-.table-title-name{
-  width:25vw;
-  font-size:1.4rem
-}
-.table-content-td{
-  position:relative;
-  width:25vw;
-  height:2.668rem;
-  font-size:1.2rem
-}
-.table-title-normal{
-  font-size:1.4rem
-}
-.table-td-input{
-  position:absolute;
-  width:80%;
-  height:90%;
-  top:0px;
-  left:5%;
-  padding-left:5px;
-  padding-right:5px;
-  text-align:center
-}
+
 </style>
 
