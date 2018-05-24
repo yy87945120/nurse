@@ -32,17 +32,18 @@
     	   <div class="hr-bar"></div>
         <!--<div class='title-hr'><div class="layout"><div class="title-hr-bar"></div><div class='title-hr-word'>待办事务</div></div></div>-->
          <!--<div class='title-hr'><div class="title-hr-bar"></div><div class='title-hr-word'>公告</div></div>-->
-        
+        <voice></voice>
     </div>
 </template>
 
 <script>
 import { Indicator } from 'mint-ui';
+import  voice  from '@/views/components/voice';
 
 import notice from '@/views/components/infusion-notice';
 export default {
   name: 'Work',
-  components:{notice},
+  components:{notice,voice},
   data () {
     return {
       PatsNav:"在院患者",
@@ -54,7 +55,6 @@ export default {
     }
   },
   methods :{
-     
    	  delay(titleText,route){
    	  	Indicator.open();
    	  
@@ -64,7 +64,7 @@ export default {
         },500)
    	  },
       notice(){
-          console.log(1)
+          //console.log(1)
       }
       
   },

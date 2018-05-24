@@ -184,7 +184,8 @@ export default {
 
    		 	let patsInfo = {
         			pat_id:item.pat_id,
-              bed_id:item.bed_id,
+              pat_name:item.pat_name,
+              bed_desc:item.bed_desc,
               nurse_id:item.nurse_id,
               doctor_id:item.doctor_id
     	 	};

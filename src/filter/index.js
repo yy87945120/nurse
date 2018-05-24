@@ -7,7 +7,10 @@ let sex = value => {
   	 return "未知";
   } 
 }
-
+let dateFormat = value =>{
+    let date = value.getDate();
+    return date
+}
 let timeFormat = value => {
   	let hour = Math.floor(value / 3600) ;
     let minute = Math.floor((value -  hour * 3600) / 60) ;
@@ -74,4 +77,4 @@ let dateYYYYMMddFormat = value => {
     return year+'-'+month+'-'+date
 }
 
-export { sex, timeFormat, stateFormat, infusionStateFormat, ageFormat, dateYYYYMMddFormat };
+export { sex, timeFormat, stateFormat, infusionStateFormat, ageFormat, dateYYYYMMddFormat, dateFormat };

@@ -145,7 +145,6 @@ export default new Router({
       path: '/PatsInfo',
       name: 'PatsInfo',
       component: PatsInfo,
-      redirect: '/PatBasicInfo',
       children:[
           { path: '/PatBasicInfo', component: PatBasicInfo, name: 'PatBasicInfo' },
           { path: '/PatWorkList', component: PatWorkList, name: 'PatWorkList' },

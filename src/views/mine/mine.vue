@@ -13,7 +13,7 @@
               <cell class="cell" title="操作记录" :is-link="true" @click.native='operationShow'></cell>
             </group>
             <group class="group">
-              <cell class="cell" title="产品设置"></cell>
+              <cell class="cell" title="产品设置" style='font-weight:500'></cell>
               <cell class="cell" title="提示功能" :is-link="true" @click.native='productTipShow'></cell>
               <cell class="cell" title="输液默认页" :is-link="true" @click.native='productInfusionListShow'></cell>
               

@@ -1,6 +1,6 @@
 <template>
     <div id="patsInfo">
-    	<nheader :routechoice='router'><p slot='title'>{{ pats.bed }}&nbsp&nbsp{{ pats.name }}</p></nheader>
+    	<nheader :routechoice='router' ><p slot='title' >{{ pats.bed_desc }}床&nbsp&nbsp{{ pats.pat_name }}</p></nheader>
      <div style='margin-top:6vh'>
        <tab :line-width=2 active-color='rgb(254,110,161)' v-model="index" >
        <div class='more-tab'  @click='isFold = !isFold' slot='fold' style=' position:absolute;right:0px;height:2.8014rem;width:8vw;z-index:99;top:0.8004rem;-moz-shadow:-2px 0px 0px rgb(150,150,150);background:white;box-shadow:-2px 0px 10px rgb(150,150,150)' > <i style='font-size:2.2rem;line-height:2.8014rem;' class='icon iconfont fold-icon'  :class="isFold?'icon-less':'icon-moreunfold'"></i> </div>
@@ -27,9 +27,9 @@
 
 <script>
 import nheader from '@/views/components/nheader'
-
+import {getPat} from '@/config'
 import { Tab, TabItem} from 'vux'
-const list = () => ['基本信息','执行单', '三测单', '医嘱','病历管理', '护理记录','费用信息']
+const list = () => ['基本信息','执行单', '三测单', '医嘱','病历管理', '护理记录']
 export default {
   name: 'patsInfo',
   data () {
@@ -39,7 +39,7 @@ export default {
       index: 0,
       demo2: '基本信息',
       isFold: false,
-      pats:[]
+      pats:{}
     }
   },
   components:{nheader,Tab,TabItem},
@@ -67,12 +67,30 @@ export default {
         this.$router.push({path:'./PatFee'})
       }
     },
-    getPatsInfo(){
-        this.pats=JSON.parse(localStorage.getItem('pats'));
+    getPatsInfo(){ 
+      
+      let pat = getPat();
+      this.pats=pat;
     }
   },
   mounted () {
-    this.getPatsInfo()
+      if(this.$route.params.redirect){
+        if(this.$route.params.redirect=='PatWorkList'){
+            this.$router.push({path:'./PatWorkList'});
+        }else if(this.$route.params.redirect=='PatThreeTest'){
+            this.$router.push({path:'./PatThreeTest'});
+        }else if(this.$route.params.redirect=='PatOrder'){
+            this.$router.push({path:'./PatOrder'});
+        }else if(this.$route.params.redirect=='PatMedicalRecord'){
+            this.$router.push({path:'./PatMedicalRecord'});
+        }else if(this.$route.params.redirect=='PatNurseRecord'){
+            this.$router.push({path:'./PatNurseRecord'});
+        }
+      }else{
+        this.getPatsInfo();
+        this.$router.push({path:'./PatBasicInfo'});
+      }
+    
   } 
 }
 </script>

@@ -29,7 +29,7 @@
               <div class='group-title-div'>备忘录分组</div>
               <div class='group-all-div' @click='chooseAll'>
                 <i style='font-size:2.4rem;float:left' class='icon iconfont icon-quanbu' @click='showGroup'></i>
-          <div class='title-div' style='height:6vh;line-height:6vh;float:left;margin-left:10px'><span style='font-size:1.5rem;line-height:6vh'>全部&nbsp;11</span></div>
+          <div class='title-div' style='height:6vh;line-height:6vh;float:left;margin-left:10px'><span style='font-size:1.5rem;line-height:6vh'>全部</span></div>
           <div style='float:right'><i :class="checkAll?'icon-xuanze':''" class='icon iconfont' style='color:rgb(249,143,183)'></i></div>
               </div>
               <div class='hr'></div>
@@ -45,8 +45,8 @@
                     <div class='group-item-detail group-item-detail-left'><i class='icon iconfont icon-09-copy' style='font-size:1.4rem;color:rgb(249,143,183)'></i></div>
                     <div class='group-item-detail group-item-detail-right' >
                       <div style='float:left;font-size:1.4rem;width:53vw;overflow:hidden;text-align:left'>
-                      {{ item.group_name }} &nbsp;1</div>
-                      <div style='float:right'><i :class="!checkAll?'icon-xuanze':''" class='icon iconfont' style='color:rgb(249,143,183)'></i></div>
+                      {{ item.group_name }}</div>
+                      <div style='float:right'><i :class="item.check=='true'?'icon-xuanze':''" class='icon iconfont' style='color:rgb(249,143,183)'></i></div>
                     </div>
                 </div>
               </div>
@@ -61,7 +61,7 @@
         </mt-popup>
           <mt-popup v-model="MarkVisible" position="right">
             <div class='new-mark-content-div' v-for="item in editInfo">
-              <dheader @close='closeNewMarkMethod'><span slot='title' @click='showGroupChoice'>item.title</span></dheader>
+              <dheader @close='closeNewMarkMethod'><span slot='title' @click='showGroupChoice'>{{editInfo.mark_info.title}}</span><span  slot='icon'><i @click='deleteMarkItem' style='font-size:2.2rem' class='icon iconfont icon-icon-'></i></span></dheader>
               <!--v-model='contentTitle' v-model="editContent"-->
                 <div class='content-title'><input  class='content-title-input' type='text' placeholder='标题'  v-model='editInfo.mark_info.title' /><i @click='cleanContentTitle' :class="contentTitle!=''?'clean-content-title':''" class='icon iconfont icon-guanbi '></i></div>
                 <div class='edit-content-div'>
@@ -70,7 +70,7 @@
                   </textarea>
                   
                 </div>
-                <div class='record-title-div' >
+                <!--<div class='record-title-div' >
                   <div class='record-title-left'>录音</div>
                   <div class='record-title-right'><i class='icon iconfont icon-plus' :class="newRecordStatus?'newRecordIcon':''" @click='newRecord'></i></div>
                 </div>
@@ -104,13 +104,13 @@
 
                     
 
-                </div>
+                </div>-->
                 <!--{{PickerValue}}-->
-                <div class='clock-content-div' @click='showClock' >
+                <div class='clock-content-div' @click='showClock'>
                   <div class='record-title-left'>提示</div>
-                  <div class='record-title-right' v-for='itemClock in editInfo.clock' >{{itemClock.date}}&nbsp;{{itemClock.time}}</div><div class='record-title-right'><i class='icon iconfont icon-iconfontzhizuobiaozhun023132'></i><i class='icon iconfont icon-guanbi'></i></div>
+                  <div class='record-title-right'>{{PickerValue}}</div><div class='record-title-right'><i  class='icon iconfont icon-iconfontzhizuobiaozhun023132'></i></div>
                 </div>
-                <div class='save-content-div'><div @click='saveContent' class='save-content' :class="editStatus?'save-content-active':'save-content-disable'"><div class='save-content-float-left'><i class='icon iconfont icon-baocun save-content-icon'></i></div><div class='save-content-float-left save-content-text'>保存</div></div></div>
+                <div class='save-content-div' @click='saveContent'><div  class='save-content save-content-active'><div class='save-content-float-left'><i class='icon iconfont icon-baocun save-content-icon'></i></div><div class='save-content-float-left save-content-text'>保存</div></div></div>
             </div>
         </mt-popup>
 
@@ -123,11 +123,11 @@
                 <div class='content-title'><input  v-model='contentTitle' class='content-title-input' type='text' placeholder='标题' /><i @click='cleanContentTitle' :class="contentTitle!=''?'clean-content-title':''" class='icon iconfont icon-guanbi '></i></div>
                 <div class='edit-content-div'>
                   <textarea  v-model="editContent" class='edit-content' placeholder='容易忘记的事情!'>
-                    111
+                    
                   </textarea>
                   
                 </div>
-                <div class='record-title-div'>
+                <!--<div class='record-title-div'>
                   <div class='record-title-left'>录音</div>
                   <div class='record-title-right'><i class='icon iconfont icon-plus' :class="newRecordStatus?'newRecordIcon':''" @click='newRecord'></i></div>
                 </div>
@@ -161,12 +161,12 @@
 
                     
 
-                </div>
+                </div>-->
                 <div class='clock-content-div' @click='showClock'>
                   <div class='record-title-left'>提示</div>
                   <div class='record-title-right'>{{PickerValue}}<i class='icon iconfont icon-iconfontzhizuobiaozhun023132'></i></div>
                 </div>
-                <div class='save-content-div'><div @click='saveContent' class='save-content' :class="editStatus?'save-content-active':'save-content-disable'"><div class='save-content-float-left'><i class='icon iconfont icon-baocun save-content-icon'></i></div><div class='save-content-float-left save-content-text'>保存</div></div></div>
+                <div class='save-content-div'><div @click='newContent' class='save-content' :class="editStatus?'save-content-active':'save-content-disable'"><div class='save-content-float-left'><i class='icon iconfont icon-baocun save-content-icon'></i></div><div class='save-content-float-left save-content-text'>保存</div></div></div>
             </div>
         </mt-popup>
 
@@ -189,12 +189,11 @@
                 <group>
                    <mt-checklist title="分组编辑选项" style='text-align:left' align='right' v-model="optionArr" :options="groupOption">
                    </mt-checklist>
-
                 </group>
             </div>
             <div class='edit-group-operation-div'>
-              <div class='deleteGroup' @click='editGroupNameMethod'><i class='icon iconfont icon-icon9' style='margin-top:1vh;font-size:2.4rem'></i><div>编辑</div></div>
-              <div class='editGroupName' @click='deleteGroupNameMethod'><i class='icon iconfont icon-icon10' style='margin-top:1vh;font-size:2.4rem'></i><div>删除</div></div>
+              <div class='editGroupName' :class="groupEditStatus?'group-edit-active':''" @click='editGroupNameMethod'><i class='icon iconfont icon-icon9' style='margin-top:1vh;font-size:2.4rem'></i><div>编辑</div></div>
+              <div class='deleteGroup' :class="groupDeleteStatus?'group-delete-active':''" @click='deleteGroupNameMethod'><i class='icon iconfont icon-icon10' style='margin-top:1vh;font-size:2.4rem'></i><div>删除</div></div>
             </div>
 
                 <div  :class="newGroupVisible?'newGroupClass':'newGroupClass-in'">
@@ -204,10 +203,20 @@
                     </div>
                     <div>
                         <div @click='newGroupVisible = false' style='float:left;height:30px;line-height:30px;width:45vw;font-size:1.6rem'>取消</div>
-                        <div @click='newGroupVisible = false' style='float:left;height:30px;line-height:30px;width:45vw;font-size:1.6rem'>确定</div>
+                        <div @click='makeGroupMethod' style='float:left;height:30px;line-height:30px;width:45vw;font-size:1.6rem'>确定</div>
                     </div>
                 </div>
-              
+               
+                <div  :class="eidtGroupVisible?'newGroupClass':'newGroupClass-in'">
+                    <div class='newGroupClass-title' style='height:45px;line-height:45px;font-size:1.6rem'>编辑分组</div>
+                    <div style='height:70px;line-height:70px' >
+                      <input v-model='newGroupName' type='text' style='width:80vw;height:30px;border:none;border-bottom:1px solid rgb(80,80,80)' placeholder='请填写分组名字'/>
+                    </div>
+                    <div>
+                        <div @click='eidtGroupVisible = false' style='float:left;height:30px;line-height:30px;width:45vw;font-size:1.6rem'>取消</div>
+                        <div @click='editGroupMethod' style='float:left;height:30px;line-height:30px;width:45vw;font-size:1.6rem'>确定</div>
+                    </div>
+                </div>
             </div>
         </mt-popup>
 
@@ -244,6 +253,8 @@ export default {
     return {
         groupOption:[],
         optionArr:[],
+        groupDeleteStatus:false,
+        groupEditStatus:false,
         checkAll:true,
         title:'全部',
         groupVisible:false,
@@ -273,31 +284,134 @@ export default {
         newGroupVisible:false,
         markItemList:[],
         group:[],
-
+        group_id:0,
+        eidtGroupVisible:false
     }
   },
   components:{Group,Cell,dheader,Indicator,MessageBox},
   methods :{
+    editGroupConfirm(){
+      
+    },
+    editGroupMethod(){
+      let group_id = this.optionArr[0];
+      let group_name = this.newGroupName;
+      let _this = this;
+      let params = {
+        "group_id":group_id,
+        "group_name":group_name
+      }
+      $.ajax({
+          data:params,
+          type:"post",
+          url:"http://120.24.73.75:8200/CI/index.php/BasicInfo/editGroupName",
+          datatype:"json",
+          async:false,
+          success:function(data){
+            _this.getMarkItemInfo(0);
+            let groupArr = [];
+            _this.group.forEach(function(item){
+              let arr = {};
+              arr.label=item.group_name;
+              arr.value=item.row_id;
+              groupArr.push(arr);
+              _this.eidtGroupVisible=false
+              })
+              _this.groupOption=groupArr;
+          },
+          error:function(e){
+            console.log(e);
+          }
+        })
+    },
+    deleteMarkItem(){
+      let row_id = this.editInfo.mark_info.row_id;
+      let _this = this;
+      let params = {
+         "row_id":row_id
+      };
+      $.ajax({
+          data:params,
+          type:"post",
+          url:"http://120.24.73.75:8200/CI/index.php/BasicInfo/deleteMarkItem",
+          datatype:"json",
+          async:false,
+          success:function(data){
+            _this.getMarkItemInfo(_this.group_id);
+            _this.MarkVisible=false;
+          },
+          error:function(e){
+            console.log(e);
+          }
+        })
+    },
     editGroupNameMethod(){
-
+      if(this.groupEditStatus){
+        this.eidtGroupVisible=true
+    }else{
+      return;
+    }
     },
     deleteGroupNameMethod(){
+    if(this.groupDeleteStatus){
 
-    },
+        let arr = JSON.stringify(this.optionArr);
+        let _this = this;
+        let params = {
+          "arr":arr
+        }
+        $.ajax({
+          data:params,
+          type:"post",
+          url:"http://120.24.73.75:8200/CI/index.php/BasicInfo/deleteMarkGroup",
+          datatype:"json",
+          async:false,
+          success:function(data){
+            console.log(data);
+            _this.getMarkItemInfo(0);
+            let groupArr = [];
+            _this.group.forEach(function(item){
+              let arr = {};
+              arr.label=item.group_name;
+              arr.value=item.row_id;
+              groupArr.push(arr);
+              _this.eidtGroupVisible=false
+              })
+              _this.groupOption=groupArr;
+              _this.groupEditStatus=false;
+              _this.groupDeleteStatus=false;
+          },
+          error:function(e){
+            console.log(e);
+          }
+        })
+        
+
+    }else{
+      return;
+    }
+      
+    },  
     chooseAll(){
       this.checkAll = true;
       this.title='全部';
       
       this.getMarkItemInfo(0);
       this.groupVisible = false;
+
+      this.group_id = 0;
     },
     chooseGroup(item,index){
-      this.group[index].check=true;
-      
+      let group = this.group
+      group[index].check = "true";
       this.checkAll = false;
       this.getMarkItemInfo(item.row_id);
       this.groupVisible = false;
+      this.title = item.group_name;
+      this.group_id = item.row_id;
+
     },
+
     getMarkItemInfo(group_dr){
         let _this = this;
         let user = getUser();
@@ -311,6 +425,7 @@ export default {
           type:"post",
           url:"http://120.24.73.75:8200/CI/index.php/BasicInfo/getMarkInfo",
           datatype:"json",
+          async:false,
           success:function(data){
             let res = JSON.parse(data);
             
@@ -326,27 +441,97 @@ export default {
     showContent(item){
         this.editInfo = item;
         this.MarkVisible=true;
+        console.log(item);
+        this.PickerValue = item.clock[0].date+" "+item.clock[0].time
     },
     cleanClock(){
         this.PickerValue = '';
     },
-    startDates(){
-        this.PickerValue = this.datePickerValue;
+    startDates(){ 
+        let year = new Date(this.datePickerValue).getFullYear();
+        let month = new Date(this.datePickerValue).getMonth()+1;
+        let date = new Date(this.datePickerValue).getDate();
+
+        let hour = new Date(this.datePickerValue).getHours();
+        let minute = new Date(this.datePickerValue).getMinutes();
+        let second = new Date(this.datePickerValue).getSeconds();
+        console.log(year,month,date,hour,minute,second)
+        this.PickerValue = year+"-"+month+"-"+date+" "+hour+":"+minute+":"+second;
+        console.log(this.PickerValue);
     },
     showClock(){
         this.$refs.picker.open();
 
     },
     saveContent(){
-      Indicator.open('保存中');
-      setTimeout(()=>{
-        Indicator.close();
-        Indicator.open('保存成功');
-      },1000)
-      setTimeout(()=>{
-        Indicator.close();
-        this.editStatus = false
-      },1000)
+        let _this = this;
+        let user = getUser();
+        let pickValue = this.PickerValue.split(" ");
+        let clock_date = pickValue[0];
+        let clock_time = pickValue[1];
+        let title = this.editInfo.mark_info.title;
+        let content = this.editInfo.mark_info.content;
+       
+        let params = {
+          'nurse_id':user[0].row_id,
+          'title':title,
+          'content':content,
+          'clock_date':clock_date,
+          'clock_time':clock_time,
+          'row_id':this.editInfo.mark_info.row_id
+        };
+        
+      $.ajax({
+          data:params,
+          type:"post",
+          url:"http://120.24.73.75:8200/CI/index.php/BasicInfo/editMarkMethod",
+          datatype:"json",
+          async:false,
+          success:function(data){
+              _this.getMarkItemInfo(_this.group_id);
+              alert("保存成功");
+          },
+          error:function(e){
+            console.log(e);
+          }
+        })
+    },
+    newContent(){
+        let _this = this;
+        let user = getUser();
+        let pickValue = this.PickerValue.split(" ");
+        let clock_date = pickValue[0];
+        let clock_time = pickValue[1];
+        let title = this.contentTitle;
+        let content = this.editContent
+        let group_id = this.group_id
+        let params = {
+          'nurse_id':user[0].row_id,
+          'group_dr':group_id,
+          'title':title,
+          'content':content,
+          'clock_date':clock_date,
+          'clock_time':clock_time,
+        };
+        $.ajax({
+          data:params,
+          type:"post",
+          url:"http://120.24.73.75:8200/CI/index.php/BasicInfo/newMarkMethod",
+          datatype:"json",
+          async:false,
+          success:function(data){
+            _this.getMarkItemInfo(_this.group_id);
+            _this.editStatus = false;
+            _this.newMarkVisible = false;
+            _this.MarkVisible = false;
+
+          },
+          error:function(e){
+            console.log(e);
+          }
+        })
+        
+      
       
     },
     
@@ -385,18 +570,54 @@ export default {
         this.newMarkVisible = false;
         this.MarkVisible = false;
     },
+    makeGroupMethod(){
+       let user = getUser()
+       let nurse_id = user[0].row_id;
+       let groupName = this.newGroupName;
+       let _this = this;
+
+       let data={
+          'nurse_id':nurse_id,
+          'group_name':groupName
+       }
+       $.ajax({
+        data:data,
+        type:"post",
+        url:"http://120.24.73.75:8200/CI/index.php/BasicInfo/newGroupMethod",
+        datatype:"json",
+        success:function(data){        
+            _this.getMarkItemInfo(0);
+
+            let groupArr = [];
+            _this.group.forEach(function(item){
+              let arr = {};
+              arr.label=item.group_name;
+              arr.value=item.row_id;
+              groupArr.push(arr);
+        })
+            _this.groupOption=groupArr;
+            _this.newGroupVisible = false;
+        },
+        error:function(e){
+          console.log(e)
+        }
+        })
+      
+    },
     newGroupMethod(){
        this.newGroupVisible = true;
        this.newGroupName = '';
     },
     editGroup(){
       let _this = this;
+      let groupArr = [];
       this.group.forEach(function(item){
           let arr = {};
           arr.label=item.group_name;
           arr.value=item.row_id;
-          _this.groupOption.push(arr);
+          groupArr.push(arr);
       })
+      _this.groupOption=groupArr;
       this.groupVisible = false;
       this.groupSettingVisible = true;
 
@@ -425,52 +646,8 @@ export default {
     },
     showGroup(){
           this.groupVisible = true
-    },
-    getRecord(){
-
-        if (!window.plus) return;
-        r = plus.audio.getRecorder(); 
-        alert("获取录音对象成功");
-        if ( r == null ) {
-            alert( "Device not ready!" );
-            return; 
-          } 
-     
-    r.record({filename:"_doc/audio/"}, function(){
-      alert( "Audio record success!" );  
-      
-  }, function(e){
-    outLine('录音失败：'+e.message);
-  } );
-    },
-  
-    startRecognize () {
-    if (!window.plus) return;
-  var options = {};
-  
-  options.timeout = '60000';
-  text = "";
-  
-  plus.speech.startRecognize( options, function ( s ) {
-    text += s;
-  }, function ( e ) {
-    alert( "语音识别失败："+e.message );
-  } );
-  setTimeout( this.stopRecognize, 20000 );
-},
-  stopRecognize(){
-  if (!window.plus) return;
-  plus.speech.stopRecognize();
-},
-  closeVideo(){
-      if (!window.plus) return;
-      r.stop();
-      alert("录音停止了");
-    },
-    textContent(){
-      alert(text);
-      console.log(text);
     }
+
   },
   mounted () {
     this.getMarkItemInfo(0);
@@ -485,6 +662,22 @@ export default {
       if(newVal != oldVal){
         this.editStatus = true;
       }
+    },
+    optionArr(newVal){
+      let _this = this;
+      if(newVal.length == 0){
+         _this.groupDeleteStatus=false;
+        _this.groupEditStatus=false;
+      }
+      if(newVal.length == 1){
+         _this.groupDeleteStatus=true;
+        _this.groupEditStatus=true;
+      }
+
+      if(newVal.length > 1 ){
+        _this.groupDeleteStatus=true;
+        _this.groupEditStatus=false;
+      }
     }
   }
 }
@@ -493,7 +686,6 @@ export default {
 <!-- Add "scoed" attribute to limit CSS to this component only -->
 <style scoped>
 .edit-group-operation-div{
-    
     width:100vw;
     height:7vh;
     color:rgb(150,150,150)
@@ -523,11 +715,13 @@ export default {
   height:150px;
   top:100%;
   left:50%;
+  background:white;
   margin-left:-45vw;
   transition:all .3s cubic-bezier(.55,0,.1,1);
 }
 .newGroupClass{
   position:absolute;
+  background:white;
   border-radius:5px;
   border:1px solid rgb(200,200,200);
   width:90vw;
@@ -724,7 +918,7 @@ export default {
 .edit-content-div{
   display:inline-block;
   width:90vw;
-  height:31vh;
+  height:60vh;
   border-bottom:1px solid rgb(230,230,230);
   position:relative;
   margin-top:1vh;
@@ -732,7 +926,7 @@ export default {
 }
 .edit-content{
   width:90vw;
-  height:30vh;
+  height:60vh;
   resize:none;
   border:none;
   outline:none;
@@ -935,6 +1129,12 @@ export default {
   height:86vh;
   background:rgb(237,237,237);
   overflow-y:auto
+}
+.group-delete-active{
+  color:rgb(249,143,183);
+}
+.group-edit-active{
+  color:rgb(249,143,183);
 }
 </style>
 

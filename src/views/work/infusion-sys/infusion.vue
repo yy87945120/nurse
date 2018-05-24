@@ -30,7 +30,7 @@
     	
      <div class="page-tab-container" style="">   
      <div class="layout">
-     <mt-tab-container v-model="active" style='height:79vh' swipeable>
+     <mt-tab-container v-model="active" style='height:79vh;' swipeable>
   <mt-tab-container-item id="tab-list">
       <div class='layout'>
          <div class='infusion-main-content'>
@@ -263,7 +263,7 @@
 import nheader from '@/views/components/nheader';
 //import { getInfusion } from '@/api/api';
 import { Countdown,Search,Picker} from 'vux';
-import { Indicator } from 'mint-ui';
+import { Indicator,MessageBox } from 'mint-ui';
  
 export default {
   name: 'Infusion',
@@ -272,7 +272,8 @@ export default {
     Indicator,  
     Search,
     nheader,
-    Picker
+    Picker,
+    MessageBox
   },
   props:['title'],
   data () {
@@ -332,7 +333,6 @@ export default {
           this.popupVisible = false;
           this.filter.ward = this.detailValue[0];
           this.filter.order = this.detailValue[1];
-     
       },
       cancelDetailPicker(){
           this.popupVisible = false
@@ -344,23 +344,36 @@ export default {
           this.InfusionInfo[index].needTime = $event;
       },
    		getInfusionInfo(){
+      let _this = this;
       let par = {
         name : this.filter.name
       }
        
         Indicator.open('加载中...');
-   			getInfusion(par).then((res) => {
+   			
         
    				
    		    
   			
         setTimeout(()=>{
-          this.InfusionInfo = res.data.InfusionInfo;
+          $.ajax({
+            data:{},
+            type:"post",
+            url:"http://120.24.73.75:8200/CI/index.php/Yzf/getInfusionMethod",
+            datatype:"json",
+            async:false,
+            success:function(data){
+            _this.InfusionInfo = JSON.parse(data);
+            console.log(_this.InfusionInfo);
+            Indicator.close();
+            },
+            error:function(e){
+            console.log(e);
+            }
+          });
+          
      
-          Indicator.close();
-        },1000)
-			});
-
+       },300)
    		},
       togglePerformance(){
         if( this.active == 'tab-list'){
@@ -446,7 +459,7 @@ export default {
     }
   },
   mounted () {
-  		//this.getInfusionInfo('');
+  		this.getInfusionInfo();
 
   }
 
@@ -633,6 +646,18 @@ export default {
   color:#26a2ff;
   width:50vw;
   border-bottom:2px solid rgb(244,244,244)
+}
+#InfusionInfo{
+  height:79vh;
+  overflow-y:auto;
+  width:90vw;
+  display:inline-block
+}
+.infusion-main-content{
+  height:79vh;
+  overflow-y:auto;
+  width:90vw;
+  display:inline-block
 }
 .infusion-main-content-table{
   width:90vw

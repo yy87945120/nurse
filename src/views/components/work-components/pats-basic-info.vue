@@ -3,7 +3,7 @@
         <div v-for='item in patsInfo'>
     	<div id="pat-basic-info">
     	<div class="font-layout">
-    		<div style="float:left;background:red;width:22vw;height:10vh"><img/></div>
+    		<!--<div style="float:left;width:22vw;height:10vh"><img/></div>-->
     		<div style="float:left;margin-left:5vw;width:60vw;">
     			<table class='basic-info-table' style='width:65vw;'>
     				<tr>

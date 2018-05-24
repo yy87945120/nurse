@@ -75,7 +75,6 @@ li{
 .slide-down-enter-active {
 	top: 0;
 }
-
 .slide-down-enter,
 .slide-down-leave-active {
 	top: 1000px;
